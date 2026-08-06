@@ -74,7 +74,11 @@ def send_test():
 
 def send(hits, test=False):
     host = os.environ.get("SMTP_HOST")
-    port = int(os.environ.get("SMTP_PORT", "587"))
+    raw_port = (os.environ.get("SMTP_PORT") or "587").strip()
+    if not raw_port.isdigit():
+        # A misconfigured secret shouldn't look like a code bug.
+        return False, f"SMTP_PORT is not a number ({raw_port!r}); check the secret"
+    port = int(raw_port)
     user = os.environ.get("SMTP_USER")
     password = os.environ.get("SMTP_PASS")
     to_full = _split(os.environ.get("MAIL_TO"))
