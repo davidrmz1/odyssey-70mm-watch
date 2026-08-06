@@ -67,7 +67,12 @@ def build_bodies(hits):
     return subject, "\n".join(full), sms
 
 
-def send(hits):
+def send_test():
+    """Prove the delivery path works, without implying a real showtime opened."""
+    return send([], test=True)
+
+
+def send(hits, test=False):
     host = os.environ.get("SMTP_HOST")
     port = int(os.environ.get("SMTP_PORT", "587"))
     user = os.environ.get("SMTP_USER")
@@ -85,7 +90,17 @@ def send(hits):
     if not to_full and not to_sms:
         return False, "no recipients (set MAIL_TO and/or MAIL_TO_SMS)"
 
-    subject, body_full, body_sms = build_bodies(hits)
+    if test:
+        subject = "TEST: Odyssey 70mm watcher delivery check"
+        body_full = (
+            "TEST -- this is not a real showtime alert.\n\n"
+            "Sent from GitHub Actions to confirm the watcher can reach you.\n"
+            "Real alerts name a date, a showtime, and a ticket link.\n\n"
+            f"{SITE}\n"
+        )
+        body_sms = "TEST: Odyssey 70mm watcher delivery check. No action needed."
+    else:
+        subject, body_full, body_sms = build_bodies(hits)
     sent_to = []
 
     try:

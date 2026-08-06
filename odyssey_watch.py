@@ -163,8 +163,16 @@ def main():
     ap.add_argument("--days", type=int, default=60)
     ap.add_argument("--baseline", action="store_true")
     ap.add_argument("--notify", action="store_true", help="send email on a hit")
+    ap.add_argument("--test-notify", action="store_true",
+                    help="send a labelled test email and exit; scans nothing")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
+
+    if args.test_notify:
+        import notify
+        ok, detail = notify.send_test()
+        print(f"test notify: {'sent' if ok else 'FAILED'} - {detail}")
+        return 0 if ok else 3
 
     stamp = datetime.now().isoformat(timespec="seconds")
     state = load_state()

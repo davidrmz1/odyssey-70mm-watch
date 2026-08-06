@@ -16,6 +16,10 @@ on:
         description: "re-baseline state without alerting"
         type: boolean
         default: false
+      test_notify:
+        description: "send a test email and exit (no scan)"
+        type: boolean
+        default: false
 
 # Never let a frontier run and a full run fight over state.json.
 concurrency:
@@ -46,6 +50,10 @@ jobs:
           MAIL_TO_SMS: ${{ secrets.MAIL_TO_SMS }}
         run: |
           set +e
+          if [ "${{ inputs.test_notify }}" = "true" ]; then
+            python3 odyssey_watch.py --test-notify | tee scan.log
+            exit ${PIPESTATUS[0]}
+          fi
           MODE=full
           if [ "${{ github.event.schedule }}" = "7,22,37,52 * * * *" ]; then
             MODE=frontier
