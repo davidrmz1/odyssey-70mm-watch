@@ -1,0 +1,97 @@
+name: odyssey-70mm-watch
+
+on:
+  schedule:
+    # Cron here is UTC. Frontier scan ~every 15 min; full scan every 3 hours.
+    - cron: "7,22,37,52 * * * *"
+    - cron: "12 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "scan mode"
+        type: choice
+        options: [frontier, full]
+        default: full
+      baseline:
+        description: "re-baseline state without alerting"
+        type: boolean
+        default: false
+
+# Never let a frontier run and a full run fight over state.json.
+concurrency:
+  group: odyssey-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scan
+        id: scan
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          MAIL_TO_SMS: ${{ secrets.MAIL_TO_SMS }}
+        run: |
+          set +e
+          MODE=full
+          if [ "${{ github.event.schedule }}" = "7,22,37,52 * * * *" ]; then
+            MODE=frontier
+          fi
+          if [ -n "${{ inputs.mode }}" ]; then
+            MODE="${{ inputs.mode }}"
+          fi
+          EXTRA=""
+          if [ "${{ inputs.baseline }}" = "true" ]; then
+            EXTRA="--baseline"
+          fi
+          echo "running mode=$MODE $EXTRA"
+          python3 odyssey_watch.py --mode "$MODE" --days 60 --notify $EXTRA | tee scan.log
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # 0 = nothing new, 10 = hit (already emailed), 2 = endpoint dead,
+          # 3 = found something but email failed
+          if [ "$code" = "2" ] || [ "$code" = "3" ]; then
+            exit "$code"
+          fi
+          exit 0
+
+      - name: Persist state
+        run: |
+          if git diff --quiet -- state.json; then
+            echo "state unchanged; nothing to commit"
+            exit 0
+          fi
+          git config user.name  "odyssey-watch[bot]"
+          git config user.email "odyssey-watch@users.noreply.github.com"
+          git add state.json
+          git commit -m "state: horizon update $(date -u +%Y-%m-%dT%H:%MZ)"
+          # Another run may have pushed while we were scanning.
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && \
+              git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep 5
+          done
+          echo "could not push state after 3 attempts" >&2
+          exit 1
+
+      - name: Upload log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-log-${{ github.run_id }}-${{ github.run_attempt }}
+          path: scan.log
+          if-no-files-found: ignore
+          retention-days: 7
