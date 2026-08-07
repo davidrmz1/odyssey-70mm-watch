@@ -82,10 +82,10 @@
       "band": "afternoon",
       "date": "2026-08-07",
       "display": "3:25p",
-      "expired": false,
+      "expired": true,
       "key": "2026-08-07T15:25",
       "showtime_id": 553223844,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "15:25",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-07%2B15%3A25&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-a81e80f6dfaf4c5f41c9c60d0e7cdc4eeb59b05b4be6ad32750c4e29ae0ff1c9"
     },
