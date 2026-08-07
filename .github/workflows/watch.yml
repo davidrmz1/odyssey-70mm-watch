@@ -50,8 +50,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create \
+            --assignee davidrmz1 \
             --title "TEST: Odyssey 70mm alert channel check" \
             --body "$(printf '%s\n' \
+              '@davidrmz1' '' \
               'TEST -- not a real showtime alert.' '' \
               'If this reached your phone, the GitHub mobile app is set up correctly and' \
               'real alerts will arrive the same way.' '' \
@@ -105,6 +107,9 @@ jobs:
           import json, pathlib
           hits = json.loads(pathlib.Path("hits.json").read_text() or "[]")
           if hits:
+              # The @mention and the assignee are what make the GitHub mobile app
+              # actually push: it has no "issue in a watched repo" push category.
+              print("@davidrmz1\n")
               print(f"{len(hits)} new IMAX 70mm evening showtime(s) at Regal Irvine Spectrum.\n")
               for h in hits:
                   print(f"- **{h['date']} {h['display']}** — [book]({h['url']})")
@@ -119,7 +124,7 @@ jobs:
           first=h[0]
           extra=f' +{len(h)-1} more' if len(h)>1 else ''
           print(f\"Odyssey 70mm: new evening showtime {first['date']} {first['display']}{extra}\")")
-          gh issue create --title "$TITLE" --body-file issue.md
+          gh issue create --assignee davidrmz1 --title "$TITLE" --body-file issue.md
 
       - name: Persist state
         if: ${{ !inputs.test_issue }}

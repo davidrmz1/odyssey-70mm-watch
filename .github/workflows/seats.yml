@@ -60,6 +60,7 @@ jobs:
           python3 - <<'PY' > issue.md
           import json, pathlib
           hits = json.loads(pathlib.Path("seat_hits.json").read_text())
+          print("@davidrmz1\n")
           print(f"Centre seats opened up on {len(hits)} showtime(s):\n")
           for h in hits:
               b = h.get("best_centred") or {}
@@ -75,7 +76,7 @@ jobs:
           h=json.load(open('seat_hits.json')); f=h[0]
           extra=f' +{len(h)-1} more' if len(h)>1 else ''
           print(f\"Odyssey 70mm: CENTRE SEATS open {f['date']} {f['display']}{extra}\")")
-          gh issue create --title "$TITLE" --body-file issue.md
+          gh issue create --assignee davidrmz1 --title "$TITLE" --body-file issue.md
 
       - name: Persist seat state
         run: |
