@@ -20,6 +20,10 @@ on:
         description: "send a test email and exit (no scan)"
         type: boolean
         default: false
+      test_issue:
+        description: "open a test issue and exit (verifies phone push)"
+        type: boolean
+        default: false
 
 # Never let a frontier run and a full run fight over state.json.
 concurrency:
@@ -40,8 +44,23 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Test issue (verifies the phone-push path)
+        if: inputs.test_issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "TEST: Odyssey 70mm alert channel check" \
+            --body "$(printf '%s\n' \
+              'TEST -- not a real showtime alert.' '' \
+              'If this reached your phone, the GitHub mobile app is set up correctly and' \
+              'real alerts will arrive the same way.' '' \
+              'A real alert names the date, the showtime, and links straight to booking.' '' \
+              'Close this issue; no action needed.')"
+
       - name: Scan
         id: scan
+        if: ${{ !inputs.test_issue }}
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -78,7 +97,7 @@ jobs:
           exit 0
 
       - name: Open issue on a hit
-        if: hashFiles('hits.json') != ''
+        if: ${{ !inputs.test_issue && hashFiles('hits.json') != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -103,6 +122,7 @@ jobs:
           gh issue create --title "$TITLE" --body-file issue.md
 
       - name: Persist state
+        if: ${{ !inputs.test_issue }}
         run: |
           if git diff --quiet -- state.json; then
             echo "state unchanged; nothing to commit"
