@@ -8,3 +8,4 @@ scan.log
 seat_check.log
 launchd.out.log
 launchd.err.log
+gh_token.txt

@@ -1,10 +1,5 @@
 {
-  "errors": [
-    [
-      "2026-08-06",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ]
-  ],
+  "errors": [],
   "results": [
     {
       "auditorium": 12,
@@ -2863,7 +2858,7 @@
     },
     {
       "auditorium": 12,
-      "available": 141,
+      "available": 139,
       "best": [
         {
           "centre_offset": 0.434,
@@ -2935,7 +2930,7 @@
       "date": "2026-09-14",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 115,
+      "pairs_total": 114,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-14%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-7dd010cb96f7f0a2ca31cf089c3dddd4fce3b37e6f6bab378201e3f3d7d6160a"
     },

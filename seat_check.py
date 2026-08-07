@@ -149,6 +149,8 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="only check first N showtimes")
     ap.add_argument("--date", help="check a single date, YYYY-MM-DD")
     ap.add_argument("--json", action="store_true", help="dump machine-readable results")
+    ap.add_argument("--notify-issue", action="store_true",
+                    help="open an assigned GitHub issue when centre seats appear")
     args = ap.parse_args()
 
     shows = json.loads(STATE_PATH.read_text())["shows"]
@@ -225,6 +227,14 @@ def main():
     SEAT_HITS_PATH.write_text(json.dumps(newly, indent=2, sort_keys=True))
     if args.json:
         print(json.dumps(results, indent=2))
+
+    if newly and args.notify_issue:
+        import notify_issue
+        ok, detail = notify_issue.create_issue(newly)
+        print(f"notify(issue): {'ok' if ok else 'FAILED'} - {detail}")
+        if not ok:
+            return 3  # found seats but couldn't tell anyone - must not look clean
+
     return 10 if newly else 0
 
 
