@@ -216,6 +216,11 @@ def main():
              "errors": errors}, indent=2, sort_keys=True))
     else:
         print("no showtimes checked successfully - leaving seat state untouched")
+        if errors:
+            # Must not exit 0: a sweep that checked nothing is a failure, and
+            # reporting success made a fully-403'd run look green in Actions.
+            print("ALL SEAT CHECKS FAILED (tickets.fandango.com blocks datacenter IPs)")
+            return 2
 
     SEAT_HITS_PATH.write_text(json.dumps(newly, indent=2, sort_keys=True))
     if args.json:

@@ -5,9 +5,11 @@ name: odyssey-70mm-seats
 # no centred pair gains one. ~126 requests per sweep, so this runs 2-hourly, not
 # every 15 minutes like the showtime watcher.
 
+# NOTE: the schedule is deliberately disabled. tickets.fandango.com returns 403
+# to GitHub's datacenter IPs, so a scheduled sweep would fail every 2 hours and
+# do nothing but generate noise. Seat checking has to run from a residential
+# connection - see README. Manual dispatch is kept for testing.
 on:
-  schedule:
-    - cron: "23 */2 * * *"
   workflow_dispatch:
     inputs:
       date:
@@ -41,7 +43,10 @@ jobs:
           ARGS=""
           if [ -n "${{ inputs.date }}" ]; then ARGS="--date ${{ inputs.date }}"; fi
           python3 seat_check.py $ARGS | tee seats.log
-          echo "exit=${PIPESTATUS[0]}"
+          code=${PIPESTATUS[0]}
+          echo "exit=$code"
+          # 2 = every seat check failed; surface it instead of reporting green.
+          if [ "$code" = "2" ]; then exit 2; fi
           exit 0
 
       - name: Open issue on newly-available centre seats
