@@ -28,6 +28,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write   # the alert channel: an issue push-notifies the GitHub mobile app
 
 jobs:
   watch:
@@ -75,6 +76,31 @@ jobs:
             exit "$code"
           fi
           exit 0
+
+      - name: Open issue on a hit
+        if: hashFiles('hits.json') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY' > issue.md
+          import json, pathlib
+          hits = json.loads(pathlib.Path("hits.json").read_text() or "[]")
+          if hits:
+              print(f"{len(hits)} new IMAX 70mm evening showtime(s) at Regal Irvine Spectrum.\n")
+              for h in hits:
+                  print(f"- **{h['date']} {h['display']}** — [book]({h['url']})")
+              print("\nSeats are not checked here; this only means the showtime is newly listed.")
+          PY
+          if [ ! -s issue.md ]; then
+            echo "no hits; no issue"; exit 0
+          fi
+          TITLE=$(python3 -c "
+          import json,pathlib
+          h=json.loads(pathlib.Path('hits.json').read_text())
+          first=h[0]
+          extra=f' +{len(h)-1} more' if len(h)>1 else ''
+          print(f\"Odyssey 70mm: new evening showtime {first['date']} {first['display']}{extra}\")")
+          gh issue create --title "$TITLE" --body-file issue.md
 
       - name: Persist state
         run: |

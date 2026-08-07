@@ -1,2 +1,7 @@
 last_run.txt
 __pycache__/
+hits.json
+seat_hits.json
+issue.md
+seats.log
+scan.log

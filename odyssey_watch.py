@@ -48,13 +48,29 @@ HEADERS = {
 HERE = Path(__file__).parent
 STATE_PATH = HERE / "state.json"
 LASTRUN_PATH = HERE / "last_run.txt"  # gitignored; keeps state.json diff-free
+HITS_PATH = HERE / "hits.json"        # gitignored; consumed by the workflow to
+                                      # open a GitHub issue (the primary alert)
 
 
-def fetch_day(day):
+def fetch_day(day, attempts=3):
+    """Fetch one day, retrying transient network failures.
+
+    Catch OSError, not TimeoutError: on Python 3.9 socket.timeout is an OSError
+    but NOT a TimeoutError (they were only aliased in 3.10), so a narrower
+    handler lets a read timeout escape and kill the whole scan.
+    """
     url = ENDPOINT.format(theater=THEATER, date=day.isoformat())
     req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.load(resp)
+    last = None
+    for i in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                return json.load(resp)
+        except (OSError, json.JSONDecodeError) as exc:
+            last = exc
+            if i < attempts - 1:
+                time.sleep(1.5 * (i + 1))
+    raise last
 
 
 def parse_ticketing_date(raw):
@@ -131,11 +147,8 @@ def scan(dates, verbose=False):
     for day in dates:
         try:
             payload = fetch_day(day)
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
-            errors.append((day.isoformat(), str(exc)))
-            continue
-        except json.JSONDecodeError as exc:
-            errors.append((day.isoformat(), f"bad json: {exc}"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append((day.isoformat(), f"{type(exc).__name__}: {exc}"))
             continue
         if payload.get("error"):
             errors.append((day.isoformat(), payload.get("errorMessage") or payload["error"]))
@@ -229,6 +242,7 @@ def main():
     if not hits:
         n = len(new_keys) + len(reopened)
         print(f"\nno new evening showtimes ({n} new/reopened outside the evening window)")
+        HITS_PATH.write_text("[]")
         return 0
 
     print("\n*** NEW IN-WINDOW 70MM SHOWTIMES ***")
@@ -236,11 +250,16 @@ def main():
         print(f"  {s['date']} {s['display']}  status={s['status']}")
         print(f"    {s['url']}")
 
+    # The workflow turns this into a GitHub issue, which pushes to the phone.
+    HITS_PATH.write_text(json.dumps(hits, indent=2, sort_keys=True))
+
     if args.notify:
         import notify
         ok, detail = notify.send(hits)
-        print(f"notify: {'sent' if ok else 'FAILED'} - {detail}")
-        if not ok:
+        print(f"notify(email): {'sent' if ok else 'not sent'} - {detail}")
+        # Email is a secondary channel now. An unconfigured mailer must not fail
+        # the run, or removing the SMTP secrets would break alerting entirely.
+        if not ok and "missing config" not in detail and "no recipients" not in detail:
             return 3
     return 10
 
