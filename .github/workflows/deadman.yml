@@ -1,0 +1,107 @@
+name: odyssey-deadman
+
+# Everything that actually checks anything now runs on one Windows PC. If that
+# PC dies -- Python broken, git credentials expired, machine simply off -- all
+# checking stops SILENTLY. Nothing else would ever tell you.
+#
+# The runners stamp heartbeat_seats.json / heartbeat_dates.json on every run
+# (see publish_state.py --heartbeat). This watches those timestamps and opens an
+# issue when one goes stale, then closes it again when the PC comes back.
+#
+# This workflow is the one thing that genuinely has to live in Actions: a
+# deadman hosted on the machine it monitors is useless. GitHub drops most
+# scheduled runs (~17% delivery, measured 2026-08-10), which is fine here --
+# STALE_HOURS is far larger than the worst observed gap, so a delayed check
+# still fires long before it matters.
+
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+env:
+  # Generous on purpose. The seat sweep stamps every 2h, so this is 6 missed
+  # runs. It also has to survive the PC being shut off overnight without crying
+  # wolf -- a weekend shutdown SHOULD alert, an 8-hour night should not.
+  STALE_HOURS: "12"
+  ISSUE_TITLE: "Odyssey watcher stalled"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Evaluate heartbeats
+        id: check
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os, pathlib
+          from datetime import datetime, timezone
+
+          limit = float(os.environ["STALE_HOURS"])
+          now = datetime.now(timezone.utc)
+          stale, lines = [], []
+
+          for source in ("seats", "dates"):
+              p = pathlib.Path(f"heartbeat_{source}.json")
+              if not p.exists():
+                  # Not yet stamped once. Treat as unknown, not as failure --
+                  # otherwise this fires before the PC has had a chance to run.
+                  lines.append(f"- `{source}`: no heartbeat file yet")
+                  continue
+              try:
+                  ts = json.loads(p.read_text())["utc"]
+                  age = (now - datetime.strptime(ts, "%Y-%m-%dT%H:%MZ")
+                         .replace(tzinfo=timezone.utc)).total_seconds() / 3600
+              except (ValueError, KeyError, json.JSONDecodeError) as exc:
+                  stale.append(source)
+                  lines.append(f"- `{source}`: unreadable heartbeat ({exc})")
+                  continue
+              mark = "STALE" if age > limit else "ok"
+              lines.append(f"- `{source}`: last stamp {ts}, {age:.1f}h ago ({mark})")
+              if age > limit:
+                  stale.append(source)
+
+          print(f"stale={'yes' if stale else 'no'}")
+          print("report<<EOF")
+          print("\n".join(lines))
+          print("EOF")
+          PY
+
+      - name: Open or close the alert
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STALE: ${{ steps.check.outputs.stale }}
+          REPORT: ${{ steps.check.outputs.report }}
+        run: |
+          EXISTING=$(gh issue list --state open --search "in:title $ISSUE_TITLE" \
+                       --json number --jq '.[0].number // empty')
+
+          if [ "$STALE" = "yes" ]; then
+            if [ -n "$EXISTING" ]; then
+              echo "already reported in #$EXISTING"; exit 0
+            fi
+            # Body via env, never interpolated into the script body.
+            printf '%s\n\n%s\n\n%s\n' \
+              "@davidrmz1" \
+              "The Odyssey watcher has stopped reporting in. No checking is happening." \
+              "$REPORT" > issue.md
+            printf '\n%s\n' \
+              "Check the PC: Task Scheduler tasks Odyssey*, then seat_check.log and watch_dates.log." \
+              >> issue.md
+            gh issue create --assignee davidrmz1 --title "$ISSUE_TITLE" --body-file issue.md
+          else
+            if [ -n "$EXISTING" ]; then
+              gh issue close "$EXISTING" --comment "Heartbeats healthy again."
+              echo "closed #$EXISTING"
+            else
+              echo "healthy; nothing to do"
+            fi
+          fi

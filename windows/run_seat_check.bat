@@ -35,6 +35,9 @@ if not defined PYEXE (
   exit /b 1
 )
 
+REM Keep the log from growing without bound (the Mac runner has always done this).
+%PYEXE% rotate_log.py seat_check.log >nul 2>&1
+
 echo === %DATE% %TIME% starting sweep (using %PYEXE%) >> "%REPO_DIR%\seat_check.log"
 %PYEXE% seat_check.py --notify-issue >> "%REPO_DIR%\seat_check.log" 2>&1
 set CODE=%ERRORLEVEL%
@@ -44,7 +47,7 @@ REM Publish the sweep results to GitHub. Without this the seat data never
 REM leaves this PC: seats.yml has a persist step, but that workflow can never
 REM run the sweep (datacenter IPs are 403'd). Deliberately ignores failure --
 REM the results are already on disk and the next sweep retries.
-%PYEXE% publish_state.py seat_state.json "seats: sweep" >> "%REPO_DIR%\seat_check.log" 2>&1
+%PYEXE% publish_state.py --file seat_state.json --message "seats: sweep" --heartbeat seats >> "%REPO_DIR%\seat_check.log" 2>&1
 
 REM 0 = nothing new, 10 = centre seats found (issue opened),
 REM 2 = every check failed, 3 = found seats but could not open the issue

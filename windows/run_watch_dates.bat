@@ -36,13 +36,20 @@ if not defined PYEXE (
   exit /b 1
 )
 
+REM Keep the log from growing without bound; this runs every 15 minutes.
+%PYEXE% rotate_log.py watch_dates.log >nul 2>&1
+
 echo === %DATE% %TIME% starting date scan mode=%MODE% (using %PYEXE%) >> "%REPO_DIR%\watch_dates.log"
 %PYEXE% watch_dates.py %MODE% >> "%REPO_DIR%\watch_dates.log" 2>&1
 set CODE=%ERRORLEVEL%
 echo --- exit %CODE% --- >> "%REPO_DIR%\watch_dates.log"
 
 REM Publish the scan results. Nothing in Actions commits state.json anymore.
-%PYEXE% publish_state.py state.json "state: horizon update" >> "%REPO_DIR%\watch_dates.log" 2>&1
+REM Only the 2-hourly full scan stamps the heartbeat: the heartbeat always
+REM changes, so stamping it every 15 minutes would mean ~96 commits a day.
+set HB=
+if /I "%MODE%"=="full" set HB=--heartbeat dates
+%PYEXE% publish_state.py --file state.json --message "state: horizon update" %HB% >> "%REPO_DIR%\watch_dates.log" 2>&1
 
 if "%CODE%"=="2" echo ALL DATE REQUESTS FAILED - endpoint may have changed >> "%REPO_DIR%\watch_dates.log"
 if "%CODE%"=="3" echo FOUND SHOWTIMES BUT COULD NOT ALERT - check the token >> "%REPO_DIR%\watch_dates.log"

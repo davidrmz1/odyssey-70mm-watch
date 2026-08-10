@@ -2,8 +2,9 @@
 """Commit and push a state file after a scan, so results reach GitHub.
 
 Usage:
-    python publish_state.py seat_state.json "seats: sweep"
-    python publish_state.py state.json      "state: horizon update"
+    python publish_state.py --file seat_state.json --message "seats: sweep" \
+                            --heartbeat seats
+    python publish_state.py --file state.json --message "state: horizon update"
 
 Both scans now run on this PC rather than in Actions -- seat maps because
 tickets.fandango.com 403s datacenter IPs, and the date scan because GitHub
@@ -11,14 +12,23 @@ dropped ~83% of its scheduled runs (measured 2026-08-10: 40 runs in 55h against
 ~239 expected, worst gap 5.9h). Nothing in Actions commits these files anymore,
 so the runner has to.
 
-Safe after every scan: exits quietly when nothing changed, commits only the one
-named file so an unrelated dirty tree is never swept in, and rebases before
-pushing because the two scans run on independent schedules and race each other.
+--heartbeat writes heartbeat_<source>.json with the current UTC time and commits
+it alongside. That file is the liveness signal deadman.yml watches. It has to be
+separate from the state file because a state file only changes when the data
+changes, so "no recent commit" would not distinguish a dead PC from a quiet one.
+Each source gets its own heartbeat file so two runners committing at the same
+time touch different paths and cannot conflict.
+
+Safe after every scan: exits quietly when nothing changed, commits only the
+named paths so an unrelated dirty tree is never swept in, and rebases before
+pushing because the scans run on independent schedules and race each other.
 
 A failure here must never fail the scan -- the data is already on disk and the
 next run retries. Callers ignore the exit code; it is for humans reading the log.
 """
 
+import argparse
+import json
 import os
 import subprocess
 import sys
@@ -56,23 +66,49 @@ def fail(msg, result=None):
     return 1
 
 
-def main(argv):
-    target = argv[1] if len(argv) > 1 else "seat_state.json"
-    prefix = argv[2] if len(argv) > 2 else "state: update"
+def write_heartbeat(source, stamp):
+    path = HERE / f"heartbeat_{source}.json"
+    path.write_text(json.dumps({"source": source, "utc": stamp}, indent=2) + "\n")
+    return path.name
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--file", required=True, help="state file to publish")
+    ap.add_argument("--message", default="state: update", help="commit message prefix")
+    ap.add_argument("--heartbeat", help="also stamp heartbeat_<source>.json")
+    args = ap.parse_args()
 
     if not (HERE / ".git").exists():
         return fail("not a git checkout; skipping")
-    if not (HERE / target).exists():
-        return fail(f"{target} does not exist; skipping")
-
-    if git("diff", "--quiet", "--", target).returncode == 0:
-        print(f"publish: {target} unchanged; nothing to push")
-        return 0
 
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+
+    targets = []
+    if (HERE / args.file).exists():
+        if git("diff", "--quiet", "--", args.file).returncode != 0:
+            targets.append(args.file)
+    else:
+        print(f"publish: {args.file} does not exist; skipping it")
+
+    # The heartbeat always changes, so it always gets committed. That is the
+    # point: it proves the runner ran, even on a sweep that changed nothing.
+    if args.heartbeat:
+        targets.append(write_heartbeat(args.heartbeat, stamp))
+
+    if not targets:
+        print(f"publish: {args.file} unchanged; nothing to push")
+        return 0
+
+    # Stage first: `git commit -- <path>` refuses a path git has never seen, so
+    # a brand-new heartbeat file would never get its first commit.
+    add = git("add", "--", *targets)
+    if add.returncode != 0:
+        return fail("git add failed", add)
+
     commit = git(
         "-c", f"user.name={AUTHOR_NAME}", "-c", f"user.email={AUTHOR_EMAIL}",
-        "commit", "-m", f"{prefix} {stamp}", "--", target,
+        "commit", "-m", f"{args.message} {stamp}", "--", *targets,
     )
     if commit.returncode != 0:
         return fail("commit failed", commit)
@@ -82,10 +118,13 @@ def main(argv):
         if pull.returncode == 0:
             push = git("push", "origin", f"HEAD:{BRANCH}")
             if push.returncode == 0:
-                print(f"publish: pushed {target} ({stamp})")
+                print(f"publish: pushed {', '.join(targets)} ({stamp})")
                 return 0
             last = push
         else:
+            # A half-finished rebase would leave REBASE_HEAD and a dirty index,
+            # breaking every later run. Always put the tree back.
+            git("rebase", "--abort")
             last = pull
         if attempt < ATTEMPTS:
             time.sleep(5)
@@ -95,4 +134,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(main())
