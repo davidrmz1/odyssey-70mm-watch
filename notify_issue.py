@@ -7,8 +7,18 @@ for "issue in a repo you watch" -- only Direct Mentions, Assigned, Workflow Runs
 and friends. So the issue MUST assign the user and @mention them, or it silently
 never pushes.
 
-Auth: a fine-grained personal access token scoped to this one repo with
-Issues: read/write. Read from, in order:
+It must also be opened by SOMEONE ELSE. GitHub sends no notification for your
+own activity, so an issue created with davidrmz1's own credential -- which is
+what any personal token here is -- assigns and @mentions the recipient and
+notifies nobody. Verified 2026-08-10: bot-authored issues #3/#4 each produced a
+"mention" notification; self-authored #5 produced none.
+
+So this does not POST to the issues API. It dispatches .github/workflows/alert.yml,
+and github-actions[bot] opens the issue from the runner. A fine-grained token
+therefore needs Actions: write (to dispatch), not Issues: write -- the bot
+supplies the issue permission on the other side.
+
+Auth: read from, in order:
     1. GITHUB_TOKEN environment variable
     2. gh_token.txt beside this file (gitignored)
     3. the gh CLI's stored credentials, if gh is installed
@@ -24,6 +34,9 @@ from pathlib import Path
 REPO = "davidrmz1/odyssey-70mm-watch"
 USER = "davidrmz1"
 API = f"https://api.github.com/repos/{REPO}/issues"
+WORKFLOW = "alert.yml"
+BRANCH = "main"  # workflow_dispatch only resolves workflows on the default branch
+DISPATCH_API = f"https://api.github.com/repos/{REPO}/actions/workflows/{WORKFLOW}/dispatches"
 HERE = Path(__file__).parent
 
 
@@ -68,6 +81,8 @@ def build_title(hits):
 
 
 def create_issue(hits):
+    """Dispatch alert.yml so the BOT opens the issue. See module docstring for
+    why this cannot just POST to the issues API."""
     if not hits:
         return True, "no hits; no issue"
     token, source = get_token()
@@ -75,13 +90,13 @@ def create_issue(hits):
         return False, ("no token: set GITHUB_TOKEN, create gh_token.txt, "
                        "or install and log in to the gh CLI")
 
+    # inputs values must be strings, so the hit list travels as encoded JSON.
     payload = json.dumps({
-        "title": build_title(hits),
-        "body": build_body(hits),
-        "assignees": [USER],   # drives the "Assigned" push category
+        "ref": BRANCH,
+        "inputs": {"hits": json.dumps(hits)},
     }).encode()
 
-    req = urllib.request.Request(API, data=payload, method="POST", headers={
+    req = urllib.request.Request(DISPATCH_API, data=payload, method="POST", headers={
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
@@ -90,8 +105,9 @@ def create_issue(hits):
     })
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
-            num = json.load(resp).get("number")
-        return True, f"opened issue #{num} (token from {source})"
+            code = resp.status
+        # 204 No Content is success; the issue appears once the runner starts.
+        return True, f"dispatched {WORKFLOW} (HTTP {code}, token from {source})"
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", "replace")[:200]
         return False, f"HTTP {exc.code}: {detail}"

@@ -55,12 +55,27 @@ No Git? Download the ZIP from the repo page and extract it to
 
 ## 3. Create a scoped token
 
-This is the credential that lets the PC open an alert issue. Make it
-**fine-grained** and give it access to nothing else:
+This is the credential that lets the PC fire an alert.
+
+The PC does **not** open the issue itself. GitHub sends no notification for your
+own activity, so an issue created with your own token assigns you, @mentions
+you, and notifies nobody — it just sits in the repo unread. Verified 2026-08-10:
+bot-authored issues #3/#4 each produced a `mention` notification; self-authored
+#5 produced none. Instead the PC dispatches `.github/workflows/alert.yml` and
+`github-actions[bot]` opens the issue, which does notify.
+
+So the permission needed is **Actions: write** (to dispatch), *not* Issues:
+write — the bot supplies the issue permission on the runner side.
+
+**If the `gh` CLI is installed and logged in, you can skip this whole step** —
+`notify_issue.py` falls back to it, and gh's token already carries `workflow`
+scope. That is how this PC is currently set up.
+
+Otherwise, make it **fine-grained** and give it access to nothing else:
 
 1. <https://github.com/settings/personal-access-tokens/new>
 2. **Repository access** → *Only select repositories* → `odyssey-70mm-watch`
-3. **Permissions** → *Repository permissions* → **Issues: Read and write**
+3. **Permissions** → *Repository permissions* → **Actions: Read and write**
 4. Set an expiry past 2026-09-16
 5. Generate, and copy the token
 
@@ -73,8 +88,11 @@ echo github_pat_YOUR_TOKEN_HERE> gh_token.txt
 
 `gh_token.txt` is gitignored, so it will never be committed.
 
-If it leaks, the worst anyone can do is open issues in this one repo. That's the
-point — unlike a mail password, it grants no access to anything you care about.
+If it leaks, the worst anyone can do is trigger workflows in this one repo.
+That's the point — unlike a mail password, it grants no access to anything you
+care about. (Note this is a slightly wider blast radius than the Issues-only
+token this step used to ask for: dispatching a workflow runs code. Still
+confined to this repo.)
 
 Check it's found:
 
@@ -150,5 +168,8 @@ Settings → Notifications.
 | Task result `0x1` | `python` not on PATH — reinstall with the PATH box ticked |
 | `no token: set GITHUB_TOKEN...` | `gh_token.txt` missing, empty, or has a trailing newline |
 | `HTTP 403` from Fandango | this PC's IP is blocked too |
-| `HTTP 401`/`404` opening the issue | token expired, or lacks Issues: write on this repo |
+| `HTTP 401`/`404` dispatching the alert | token expired, or lacks Actions: write on this repo |
+| `HTTP 422` dispatching the alert | `alert.yml` isn't on `main` yet — workflow_dispatch only resolves workflows on the default branch |
+| Log says `dispatched`, but no issue | the alert run failed on the runner; check the Actions tab. A failed run also pushes its own "Workflow Runs" notification |
+| Issue appears but no phone push | check it was authored by `github-actions`, not you — a self-authored issue never notifies |
 | Sweep runs, no issue ever | expected — there have been no centre pairs since 2026-08-06 |

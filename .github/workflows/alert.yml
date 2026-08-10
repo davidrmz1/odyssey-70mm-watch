@@ -1,0 +1,59 @@
+name: odyssey-70mm-alert
+
+# Opens the centre-seat alert issue.
+#
+# Why this exists as a separate dispatch-only workflow: the seat sweep must run
+# on a residential IP (see windows/SETUP.md), but an issue opened by the PC's own
+# credential is authored by davidrmz1 -- and GitHub sends no notification for
+# your own activity, so the alert silently never arrives. Verified 2026-08-10:
+# bot-authored issues #3/#4 produced a "mention" notification, self-authored #5
+# produced none at all.
+#
+# So the PC sweeps, then dispatches this workflow, and github-actions[bot] --
+# a different identity from the recipient -- opens the issue. That restores the
+# assign + @mention push the mobile app needs.
+
+on:
+  workflow_dispatch:
+    inputs:
+      hits:
+        description: "JSON array of seat hits (from seat_hits.json)"
+        required: true
+        type: string
+
+permissions:
+  issues: write
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render issue
+        env:
+          # Passed via env, never interpolated into the script body: ${{ }} inside
+          # a run: block would let payload content execute as shell.
+          HITS: ${{ inputs.hits }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, sys
+          sys.path.insert(0, ".")
+          import notify_issue  # single source of truth for alert formatting
+
+          hits = json.loads(os.environ["HITS"])
+          if not hits:
+              sys.exit("no hits in payload")
+          pathlib.Path("issue.md").write_text(notify_issue.build_body(hits))
+          pathlib.Path("issue_title.txt").write_text(notify_issue.build_title(hits))
+          PY
+
+      - name: Open issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --assignee davidrmz1 \
+            --title "$(cat issue_title.txt)" --body-file issue.md
