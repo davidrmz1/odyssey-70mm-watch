@@ -169,6 +169,27 @@ Register-ScheduledTask -TaskName "OdysseyDateWatchFull" `
 never stack on itself. The full scan starts 7 minutes off the quarter-hour so it
 rarely collides with a frontier run.
 
+### No console window
+
+Register the actions through `run_hidden.vbs`, not the `.bat` directly:
+
+```powershell
+$vbs = "$env:USERPROFILE\odyssey-70mm-watch\windows\run_hidden.vbs"
+New-ScheduledTaskAction -Execute "$env:SystemRoot\System32\wscript.exe" `
+  -Argument ('"{0}" "{1}" frontier' -f $vbs, $bat)
+```
+
+The runners are `.bat` files, so they run via `cmd.exe`, and these tasks use
+`LogonType=Interactive` — a console app in the desktop session always gets a
+visible window. At 15-minute cadence that is four popups an hour, including on
+wake-from-sleep. Task Scheduler's `-Hidden` does *not* fix this; it hides the
+task from the Task Scheduler list, not the window.
+
+Do **not** "solve" it by switching to *run whether user is logged on or not*.
+That needs a stored password or an S4U logon, and S4U cannot unlock DPAPI — the
+gh token and the git credential helper both live in Windows Credential Manager
+behind DPAPI, so alerting and pushing would silently break.
+
 Run it once immediately to confirm:
 
 ```powershell
