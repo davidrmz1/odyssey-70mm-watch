@@ -1,12 +1,19 @@
 name: odyssey-70mm-watch
 
+# NOTE: the schedule is deliberately disabled. GitHub delivered only ~17% of it
+# -- measured 2026-08-10, 40 scheduled runs in 55h against ~239 expected, with a
+# worst-case gap of 5.9h. That silently broke the 15-minute cadence this scan is
+# supposed to have, so the scan moved to the Windows PC under Task Scheduler,
+# which does not drop runs (see windows/SETUP.md).
+#
+# Running both would double-alert and make the PC and this workflow fight over
+# state.json, exactly as two machines sweeping seats would. The PC is now
+# authoritative. Manual dispatch is kept for testing and for re-baselining.
+#
+#  schedule:
+#    - cron: "7,22,37,52 * * * *"   # frontier
+#    - cron: "12 */2 * * *"         # full
 on:
-  schedule:
-    # Cron here is UTC. Frontier scan ~every 15 min; full scan every 2 hours.
-    # The frontier scan is deliberately left far more frequent than 2h: it
-    # covers the horizon edge, which is where a run extension actually shows up.
-    - cron: "7,22,37,52 * * * *"
-    - cron: "12 */2 * * *"
   workflow_dispatch:
     inputs:
       mode:

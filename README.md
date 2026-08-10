@@ -3,7 +3,10 @@
 Watches **Regal Irvine Spectrum** for newly-released **IMAX 70mm** showtimes of
 *The Odyssey* and emails/texts when one appears in the evening window.
 
-Runs on GitHub Actions, so it keeps working when your computer is asleep or offline.
+Both scans now run on a Windows PC under Task Scheduler, not on GitHub Actions.
+The seat sweep has to (Fandango 403s datacenter IPs); the showtime scan moved
+there because GitHub delivered only ~17% of its schedule. See "Schedule" below.
+The tradeoff is that nothing is checked while that PC is off.
 
 ## What it alerts on
 
@@ -57,15 +60,31 @@ and shutting them down, and they silently drop long messages. The plain email to
 
 ## Schedule
 
-| Cron (UTC) | Mode | Requests |
-| --- | --- | --- |
-| `7,22,37,52 * * * *` | `frontier` — next 7 days + the horizon edge | ~29 |
-| `12 */2 * * *` | `full` — every day in a 60-day window | ~60 |
+All three run on the PC under Task Scheduler (`windows/SETUP.md`):
 
-The seat sweep runs separately, every 2 hours, on a residential machine — it
-cannot run here (see `windows/SETUP.md`). It commits `seat_state.json` back to
-this repo after each sweep, so seat results are visible in the commit log and
-not only in a local file.
+| Task | Every | What | Requests |
+| --- | --- | --- | --- |
+| `OdysseyDateWatch` | 15 min | `frontier` — next 7 days + the horizon edge | ~29 |
+| `OdysseyDateWatchFull` | 2 h | `full` — every day in a 60-day window | ~60 |
+| `OdysseySeatCheck` | 2 h | seat maps for every evening showtime | ~114 |
+
+Each run commits its state file back to this repo (`state.json` or
+`seat_state.json`), so results are visible in the commit log rather than only in
+a local file.
+
+**Why the schedule left Actions.** GitHub's scheduled runs are best-effort, and
+in practice far worse than the "queued, not guaranteed" caveat suggests:
+measured on 2026-08-10, `watch.yml` produced **40 scheduled runs in 55 hours
+against ~239 expected** — about 17% delivery, with a worst-case gap of 5.9
+hours. That silently broke the 15-minute cadence. Task Scheduler does not drop
+runs. `watch.yml`'s cron is commented out so the two never double-alert or fight
+over `state.json`; manual dispatch still works for testing and re-baselining.
+
+**Why the seat sweep stays at 2 hours.** Each sweep opens ~114 checkout sessions
+against `tickets.fandango.com`. At 15-minute intervals that would be ~11,000 a
+day from one residential IP — the most likely way to get that IP blocked, which
+would end the project outright. Centre pairs have historically taken about a day
+to sell, so the finer granularity buys very little.
 
 GitHub's scheduled runs are queued, not guaranteed — under load they can be delayed
 by 10+ minutes, and the schedule is disabled after 60 days of repo inactivity.

@@ -139,6 +139,36 @@ the credential manager already set up by `git clone`, and sets
 `GIT_TERMINAL_PROMPT=0` so a headless run fails fast instead of hanging on a
 credential dialog.
 
+### The two date-scan tasks
+
+The showtime scan runs here too. It needs no residential IP — it moved off
+Actions purely for reliability, after GitHub delivered ~17% of its schedule (40
+runs in 55h against ~239 expected, worst gap 5.9h). `watch.yml`'s cron is
+commented out so the two never double-alert or fight over `state.json`.
+
+```powershell
+$bat = "$env:USERPROFILE\odyssey-70mm-watch\windows\run_watch_dates.bat"
+$s = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries `
+     -AllowStartIfOnBatteries -WakeToRun -MultipleInstances IgnoreNew `
+     -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
+
+Register-ScheduledTask -TaskName "OdysseyDateWatch" `
+  -Action (New-ScheduledTaskAction -Execute $bat -Argument "frontier") `
+  -Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date) `
+            -RepetitionInterval (New-TimeSpan -Minutes 15)) `
+  -Settings $s -Description "Odyssey 70mm new-showtime scan (frontier, 15 min)"
+
+Register-ScheduledTask -TaskName "OdysseyDateWatchFull" `
+  -Action (New-ScheduledTaskAction -Execute $bat -Argument "full") `
+  -Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(7) `
+            -RepetitionInterval (New-TimeSpan -Hours 2)) `
+  -Settings $s -Description "Odyssey 70mm new-showtime scan (full 60d, 2h)"
+```
+
+`-MultipleInstances IgnoreNew` matters on the 15-minute task: a slow run must
+never stack on itself. The full scan starts 7 minutes off the quarter-hour so it
+rarely collides with a frontier run.
+
 Run it once immediately to confirm:
 
 ```powershell

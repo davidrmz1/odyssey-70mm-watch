@@ -80,9 +80,36 @@ def build_title(hits):
     return f"Odyssey 70mm: CENTRE SEATS open {f['date']} {f['display']}{extra}"
 
 
-def create_issue(hits):
+def build_dates_body(hits):
+    """A newly-listed showtime, not a seat hit. Seats are NOT checked here."""
+    lines = [f"@{USER}", "",
+             f"{len(hits)} new IMAX 70mm evening showtime(s) at Regal Irvine Spectrum:", ""]
+    for h in hits:
+        lines.append(f"- **{h['date']} {h['display']}** — [book]({h['url']})")
+    lines += ["", "Seats are not checked here; this only means the showtime is newly listed."]
+    return "\n".join(lines)
+
+
+def build_dates_title(hits):
+    f = hits[0]
+    extra = f" +{len(hits) - 1} more" if len(hits) > 1 else ""
+    return f"Odyssey 70mm: new evening showtime {f['date']} {f['display']}{extra}"
+
+
+RENDERERS = {
+    "seats": (build_title, build_body),
+    "dates": (build_dates_title, build_dates_body),
+}
+
+
+def create_issue(hits, kind="seats"):
     """Dispatch alert.yml so the BOT opens the issue. See module docstring for
-    why this cannot just POST to the issues API."""
+    why this cannot just POST to the issues API.
+
+    kind: "seats" (centre pair opened up) or "dates" (new showtime listed).
+    """
+    if kind not in RENDERERS:
+        return False, f"unknown alert kind {kind!r}"
     if not hits:
         return True, "no hits; no issue"
     token, source = get_token()
@@ -93,7 +120,7 @@ def create_issue(hits):
     # inputs values must be strings, so the hit list travels as encoded JSON.
     payload = json.dumps({
         "ref": BRANCH,
-        "inputs": {"hits": json.dumps(hits)},
+        "inputs": {"hits": json.dumps(hits), "kind": kind},
     }).encode()
 
     req = urllib.request.Request(DISPATCH_API, data=payload, method="POST", headers={
@@ -107,7 +134,7 @@ def create_issue(hits):
         with urllib.request.urlopen(req, timeout=30) as resp:
             code = resp.status
         # 204 No Content is success; the issue appears once the runner starts.
-        return True, f"dispatched {WORKFLOW} (HTTP {code}, token from {source})"
+        return True, f"dispatched {WORKFLOW} kind={kind} (HTTP {code}, token from {source})"
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", "replace")[:200]
         return False, f"HTTP {exc.code}: {detail}"

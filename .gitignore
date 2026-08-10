@@ -6,6 +6,7 @@ issue.md
 seats.log
 scan.log
 seat_check.log
+watch_dates.log
 launchd.out.log
 launchd.err.log
 gh_token.txt
