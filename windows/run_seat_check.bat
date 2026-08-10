@@ -35,7 +35,7 @@ if not defined PYEXE (
   exit /b 1
 )
 
-REM Keep the log from growing without bound (the Mac runner has always done this).
+REM Keep the log from growing without bound.
 %PYEXE% rotate_log.py seat_check.log >nul 2>&1
 
 echo === %DATE% %TIME% starting sweep (using %PYEXE%) >> "%REPO_DIR%\seat_check.log"

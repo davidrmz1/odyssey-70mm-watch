@@ -178,14 +178,18 @@ Get-ScheduledTaskInfo -TaskName "OdysseySeatCheck"
 
 `LastTaskResult` of `0` means success. Then read `seat_check.log`.
 
-## 6. Turn off the Mac's copy
+## 6. The Mac's copy — retired 2026-08-10
 
-Two machines sweeping would fight over `seat_state.json` and could double-alert.
-On the Mac:
+Done; nothing to do here. The Mac's checkout and its launchd agent were deleted,
+so this PC is the only machine running anything. Two machines sweeping would
+have fought over `seat_state.json` and double-alerted.
 
-```sh
-launchctl unload ~/Library/LaunchAgents/com.davidramirez.odyssey-seats.plist
-```
+Its runner (`run_seat_check.sh`) was removed with it. That script opened alert
+issues directly via `gh issue create`, which is the self-authored path that
+notifies nobody — see step 3. Anything reviving a second machine must dispatch
+`alert.yml` the way `notify_issue.py` does, not post the issue itself.
+
+With one machine doing everything, `deadman.yml` is what tells you if it stops.
 
 ---
 

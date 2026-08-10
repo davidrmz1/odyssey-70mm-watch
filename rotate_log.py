@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Trim a log file that has grown past a size cap, keeping the newest lines.
 
-The Mac runner has done this since it was written; the Windows runners did not,
-so seat_check.log and watch_dates.log grew without bound (~20 MB/year between
-them at the current cadence). This is the same behaviour, shared by both.
+The retired Mac runner did this; the Windows runners did not, so seat_check.log
+and watch_dates.log grew without bound (~20 MB/year between them at the current
+cadence). This is the same behaviour, shared by both.
 
 Usage:
     python rotate_log.py seat_check.log [max_bytes] [keep_lines]
