@@ -2,9 +2,11 @@ name: odyssey-70mm-watch
 
 on:
   schedule:
-    # Cron here is UTC. Frontier scan ~every 15 min; full scan every 3 hours.
+    # Cron here is UTC. Frontier scan ~every 15 min; full scan every 2 hours.
+    # The frontier scan is deliberately left far more frequent than 2h: it
+    # covers the horizon edge, which is where a run extension actually shows up.
     - cron: "7,22,37,52 * * * *"
-    - cron: "12 */3 * * *"
+    - cron: "12 */2 * * *"
   workflow_dispatch:
     inputs:
       mode:

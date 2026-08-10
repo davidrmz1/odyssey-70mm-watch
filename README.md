@@ -60,7 +60,12 @@ and shutting them down, and they silently drop long messages. The plain email to
 | Cron (UTC) | Mode | Requests |
 | --- | --- | --- |
 | `7,22,37,52 * * * *` | `frontier` — next 7 days + the horizon edge | ~29 |
-| `12 */3 * * *` | `full` — every day in a 60-day window | ~60 |
+| `12 */2 * * *` | `full` — every day in a 60-day window | ~60 |
+
+The seat sweep runs separately, every 2 hours, on a residential machine — it
+cannot run here (see `windows/SETUP.md`). It commits `seat_state.json` back to
+this repo after each sweep, so seat results are visible in the commit log and
+not only in a local file.
 
 GitHub's scheduled runs are queued, not guaranteed — under load they can be delayed
 by 10+ minutes, and the schedule is disabled after 60 days of repo inactivity.

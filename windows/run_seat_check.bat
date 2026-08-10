@@ -40,6 +40,12 @@ echo === %DATE% %TIME% starting sweep (using %PYEXE%) >> "%REPO_DIR%\seat_check.
 set CODE=%ERRORLEVEL%
 echo --- exit %CODE% --- >> "%REPO_DIR%\seat_check.log"
 
+REM Publish the sweep results to GitHub. Without this the seat data never
+REM leaves this PC: seats.yml has a persist step, but that workflow can never
+REM run the sweep (datacenter IPs are 403'd). Deliberately ignores failure --
+REM the results are already on disk and the next sweep retries.
+%PYEXE% publish_seat_state.py >> "%REPO_DIR%\seat_check.log" 2>&1
+
 REM 0 = nothing new, 10 = centre seats found (issue opened),
 REM 2 = every check failed, 3 = found seats but could not open the issue
 if "%CODE%"=="2" echo ALL CHECKS FAILED - Fandango may be blocking this machine >> "%REPO_DIR%\seat_check.log"

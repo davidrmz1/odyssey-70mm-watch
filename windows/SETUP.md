@@ -131,6 +131,14 @@ Register-ScheduledTask -TaskName "OdysseySeatCheck" -Action $action `
 `-StartWhenAvailable` catches up a missed run after downtime, and `-WakeToRun`
 lets the PC wake from sleep for it.
 
+Each sweep then runs `publish_seat_state.py`, which commits and pushes
+`seat_state.json` so the results land in the repo rather than staying on this
+PC. It no-ops when nothing changed, and a push failure is logged but never
+fails the sweep. This needs git to be able to push without a prompt — it uses
+the credential manager already set up by `git clone`, and sets
+`GIT_TERMINAL_PROMPT=0` so a headless run fails fast instead of hanging on a
+credential dialog.
+
 Run it once immediately to confirm:
 
 ```powershell
