@@ -13,11 +13,33 @@ The showtime watcher (new dates) already runs in the cloud and needs nothing her
 Get it from <https://www.python.org/downloads/windows/>. During install, tick
 **"Add python.exe to PATH"** — the scheduled task won't find it otherwise.
 
-Verify in a new Command Prompt:
+Verify in a **new** Command Prompt (a terminal opened before installing won't
+have the updated PATH):
 
 ```cmd
 python --version
 ```
+
+If that prints nothing, opens the Microsoft Store, or says *not recognized*, try
+the Python Launcher instead:
+
+```cmd
+py --version
+```
+
+Either one is fine — the runner script auto-detects `py`, `python` or `python3`.
+If neither works, Python isn't installed or isn't on PATH: reinstall from
+python.org and make sure **"Add python.exe to PATH"** is ticked.
+
+To see what Windows is actually resolving:
+
+```cmd
+where python
+where py
+```
+
+A `python` that resolves to `...\WindowsApps\python.exe` is Microsoft's stub,
+not a real install.
 
 No packages to install. The scripts use only the standard library.
 
