@@ -77,12 +77,33 @@ def main():
     ap.add_argument("--file", required=True, help="state file to publish")
     ap.add_argument("--message", default="state: update", help="commit message prefix")
     ap.add_argument("--heartbeat", help="also stamp heartbeat_<source>.json")
+    ap.add_argument("--min-interval", type=int, default=0, metavar="MIN",
+                    help="skip publishing if the last publish was under MIN "
+                         "minutes ago (keeps fast poll loops from flooding git)")
     args = ap.parse_args()
 
     if not (HERE / ".git").exists():
         return fail("not a git checkout; skipping")
 
-    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+    now = datetime.now(timezone.utc)
+
+    # The heartbeat changes on every run by design, so at a 5-minute sweep it
+    # would produce ~288 commits a day. Throttle publishing, not detection:
+    # alerts dispatch straight to alert.yml and never wait on this.
+    marker = HERE / f"last_publish_{args.heartbeat or Path(args.file).stem}.txt"
+    if args.min_interval > 0 and marker.exists():
+        try:
+            last = datetime.strptime(marker.read_text().strip(), "%Y-%m-%dT%H:%M:%SZ") \
+                           .replace(tzinfo=timezone.utc)
+            age_min = (now - last).total_seconds() / 60
+            if age_min < args.min_interval:
+                print(f"publish: last publish {age_min:.0f} min ago "
+                      f"(< {args.min_interval}); skipping")
+                return 0
+        except ValueError:
+            pass  # unreadable marker: fall through and publish
+
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
 
     targets = []
     if (HERE / args.file).exists():
@@ -118,6 +139,7 @@ def main():
         if pull.returncode == 0:
             push = git("push", "origin", f"HEAD:{BRANCH}")
             if push.returncode == 0:
+                marker.write_text(now.strftime("%Y-%m-%dT%H:%M:%SZ"))
                 print(f"publish: pushed {', '.join(targets)} ({stamp})")
                 return 0
             last = push

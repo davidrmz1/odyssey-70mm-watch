@@ -52,6 +52,12 @@ SEATS_WANTED = 2
 # of seats going back on sale.
 RELEASE_MIN = 4
 
+# Pause between showtimes. Was 0.8s when a sweep ran every 2 hours; with session
+# reuse each showtime is now a single request, and sweeps run every 5 minutes,
+# so this stays deliberately non-zero -- a burst of 37 back-to-back requests is
+# exactly the shape that gets an IP rate-limited.
+REQUEST_GAP = 0.4
+
 HERE = Path(__file__).parent
 STATE_PATH = HERE / "state.json"
 SEAT_STATE_PATH = HERE / "seat_state.json"
@@ -101,6 +107,68 @@ def fetch_seat_map(jump_url, retries=2):
             if attempt < retries:
                 time.sleep(2 * (attempt + 1))
     raise last
+
+
+class Blocked(Exception):
+    """Fandango refused us (403/429) rather than the showtime being unavailable."""
+
+
+class SeatSession:
+    """One checkout session reused across many showtimes.
+
+    fetch_seat_map() below builds a fresh session per showtime -- jump page,
+    /token, seat-map -- which is 3 requests each. state.json already carries
+    showtime_id, and a single token + X-FD-SessionId is accepted for showtimes
+    other than the one whose page created it (verified 2026-08-11, 4/4). So a
+    sweep costs 2 setup requests plus 1 per showtime instead of 3 per showtime:
+    111 -> 39 for a 37-showtime sweep. That is what makes short poll intervals
+    affordable without tripling the request rate.
+    """
+
+    def __init__(self):
+        self.opener = self.token = self.sess = self.referer = None
+
+    def establish(self, jump_url):
+        op, cj = new_session()
+        r = op.open(urllib.request.Request(
+            jump_url, headers={"User-Agent": UA,
+                               "Referer": "https://www.fandango.com/"}), timeout=30)
+        final = r.geturl()
+        html = r.read().decode("utf-8", "replace")
+
+        m_sid = re.search(r'"showtimeId":"(\d+)"', html)
+        m_sess = re.search(r'"sessionId":"([^"]+)"', html)
+        if not (m_sid and m_sess):
+            raise ValueError("showtimeId/sessionId not present (sold out or redirected?)")
+        csrf = next((c.value for c in cj if c.name == "_csrf"), None)
+        if not csrf:
+            raise ValueError("no _csrf cookie")
+
+        self.token = json.load(op.open(urllib.request.Request(
+            f"{HOST}/token", data=b"",
+            headers={"User-Agent": UA, "Referer": final,
+                     "X-CSRF-Token": csrf, "Accept": "application/json"},
+            method="POST"), timeout=25))["access_token"]
+        self.opener, self.sess, self.referer = op, m_sess.group(1), final
+        return m_sid.group(1)
+
+    def seat_map(self, showtime_id):
+        if not self.opener:
+            raise ValueError("session not established")
+        try:
+            body = self.opener.open(urllib.request.Request(
+                f"{HOST}/checkoutapi/showtimes/v2/{showtime_id}/seat-map/",
+                headers={"User-Agent": UA, "Referer": self.referer,
+                         "Authorization": self.token, "X-FD-SessionId": self.sess,
+                         "Accept": "application/json"}), timeout=25).read()
+        except urllib.error.HTTPError as exc:
+            # 403/429 is Fandango pushing back on us, which is categorically
+            # different from a sold-out or expired showtime. The caller counts
+            # these to decide whether to stop hammering.
+            if exc.code in (403, 429):
+                raise Blocked(f"HTTP {exc.code}") from exc
+            raise
+        return json.loads(body)["data"]
 
 
 def analyse(data):
@@ -172,13 +240,40 @@ def main():
     if args.limit:
         evening = evening[:args.limit]
 
+    import throttle
+    skip, why = throttle.should_skip()
+    if skip:
+        print(f"SKIPPING SWEEP: {why}")
+        return 0
+
     results, errors = [], []
+    blocked_count = 0
+    session = SeatSession()
+
     for s in evening:
         try:
-            info = analyse(fetch_seat_map(s["url"]))
+            sid = str(s.get("showtime_id") or "")
+            if session.opener and sid:
+                # Cheap path: one request, reusing the established session.
+                data = session.seat_map(sid)
+            else:
+                # First showtime, or one with no stored id: full 3-step, which
+                # also establishes the session the rest of the sweep reuses.
+                sid_from_page = session.establish(s["url"])
+                data = session.seat_map(sid or sid_from_page)
+            info = analyse(data)
+        except Blocked as exc:
+            blocked_count += 1
+            errors.append((s["date"], f"Blocked: {exc}"))
+            print(f"{s['date']} {s['display']:>7}  REFUSED {exc}")
+            continue
         except Exception as exc:
             errors.append((s["date"], f"{type(exc).__name__}: {exc}"))
             print(f"{s['date']} {s['display']:>7}  ERROR {type(exc).__name__}: {exc}")
+            # A dead session would fail every remaining showtime; drop it so the
+            # next iteration rebuilds one.
+            if session.opener and not isinstance(exc, ValueError):
+                session = SeatSession()
             continue
         info.update(date=s["date"], display=s["display"], url=s["url"])
         results.append(info)
@@ -188,7 +283,11 @@ def main():
               if c else "no centred pair")
         print(f"{s['date']} {s['display']:>7}  {info['available']:>3}/{info['total']} free  "
               f"pairs {info['pairs_total']:>3} ideal {info['pairs_ideal']:>2}  {cs}{flag}")
-        time.sleep(0.8)
+        time.sleep(REQUEST_GAP)
+
+    tripped, detail = throttle.record(blocked_count, len(evening))
+    if tripped:
+        print(f"THROTTLE: {detail}")
 
     ideal = [r for r in results if r["pairs_ideal"]]
 

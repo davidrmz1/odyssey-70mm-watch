@@ -48,7 +48,7 @@ REM Publish the scan results. Nothing in Actions commits state.json anymore.
 REM Only the 2-hourly full scan stamps the heartbeat: the heartbeat always
 REM changes, so stamping it every 15 minutes would mean ~96 commits a day.
 set HB=
-if /I "%MODE%"=="full" set HB=--heartbeat dates
+if /I "%MODE%"=="full" set HB=--heartbeat dates --min-interval 60 --min-interval 60
 %PYEXE% publish_state.py --file state.json --message "state: horizon update" %HB% >> "%REPO_DIR%\watch_dates.log" 2>&1
 
 if "%CODE%"=="2" echo ALL DATE REQUESTS FAILED - endpoint may have changed >> "%REPO_DIR%\watch_dates.log"

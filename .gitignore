@@ -8,3 +8,5 @@ scan.log
 seat_check.log
 watch_dates.log
 gh_token.txt
+throttle.json
+last_publish_*.txt
