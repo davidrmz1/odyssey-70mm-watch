@@ -16,6 +16,21 @@ shows are tracked in `state.json` but never alerted on.
 It fires when a showtime is **newly listed**, or when one flips from unavailable
 back to available.
 
+There are three alert triggers in total, each a separate issue opened by the
+bot:
+
+| Trigger | Kind | Fires when |
+| --- | --- | --- |
+| New showtime | `dates` | an evening 70mm showtime is newly listed |
+| Centre pair | `seats` | a pair clears `CENTRE_FRAC` and `DEPTH_MIN` (see `seat_check.py`) |
+| Seat release | `release` | one showtime gains `RELEASE_MIN` (4) or more seats since the previous sweep |
+
+The release trigger deliberately ignores where the seats are — it answers "did a
+block go back on sale", which the centre-pair trigger does not. The threshold is
+4 because measured availability rises are almost always +1 or +2 (a single
+cancellation): over 17 sweeps there were 16 rises, every one of them +1 or +2,
+so alerting on any rise would mean ~16 notifications a day.
+
 ### What it does *not* do
 
 **It does not check seats.** Fandango's showtime feed reports every listed show as

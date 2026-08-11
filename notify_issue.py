@@ -96,9 +96,35 @@ def build_dates_title(hits):
     return f"Odyssey 70mm: new evening showtime {f['date']} {f['display']}{extra}"
 
 
+def build_release_body(hits):
+    """A block of seats went back on sale. Says nothing about whether they are
+    centred -- that is what the "seats" alert is for."""
+    lines = [f"@{USER}", "",
+             f"Seats went back on sale on {len(hits)} showtime(s):", ""]
+    for h in hits:
+        b = h.get("best_centred") or {}
+        seats = "+".join(b.get("seats", []))
+        where = (f"best centred now {seats} (row {b.get('row', '?')}, "
+                 f"{b.get('depth', 0):.0%} back)") if seats else "no centred pair"
+        lines.append(
+            f"- **{h['date']} {h['display']}** — **+{h['gained']} seats** "
+            f"({h['was']} → {h['available']} of {h['total']} free); {where}"
+        )
+        lines.append(f"  [book]({h['url']})")
+    lines += ["", "These are not necessarily good seats — check the map before booking."]
+    return "\n".join(lines)
+
+
+def build_release_title(hits):
+    f = hits[0]
+    extra = f" +{len(hits) - 1} more" if len(hits) > 1 else ""
+    return f"Odyssey 70mm: +{f['gained']} seats released {f['date']} {f['display']}{extra}"
+
+
 RENDERERS = {
     "seats": (build_title, build_body),
     "dates": (build_dates_title, build_dates_body),
+    "release": (build_release_title, build_release_body),
 }
 
 

@@ -23,7 +23,7 @@ on:
       kind:
         description: "which alert to render"
         type: choice
-        options: [seats, dates]
+        options: [seats, dates, release]
         default: seats
 
 permissions:

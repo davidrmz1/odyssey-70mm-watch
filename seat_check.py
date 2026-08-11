@@ -43,6 +43,15 @@ CENTRE_FRAC = 0.20   # within +/-20% of width from centre => middle ~40% of the 
 DEPTH_MIN, DEPTH_MAX = 0.28, 0.80
 SEATS_WANTED = 2
 
+# A showtime gaining this many seats in one sweep is treated as a release worth
+# waking someone for, separately from whether the freed seats are centred.
+# Measured over 17 sweeps on 2026-08-10/11: availability rose 16 times, fell 69,
+# and was unchanged 515 times -- and every single rise was +1 or +2, i.e. one
+# person cancelling. Alerting on those would mean ~16 notifications a day, none
+# of which produced a centred pair. 4 skips the singles and catches a real block
+# of seats going back on sale.
+RELEASE_MIN = 4
+
 HERE = Path(__file__).parent
 STATE_PATH = HERE / "state.json"
 SEAT_STATE_PATH = HERE / "seat_state.json"
@@ -192,6 +201,22 @@ def main():
         prev, prev_ideal = {}, set()
     newly = [r for r in ideal if r["date"] not in prev_ideal]
 
+    # Seats going back on sale, regardless of where they are in the room. This
+    # is a separate question from "is there an ideal pair" and must not touch
+    # DEPTH_MIN. Compared against the immediately previous sweep, so a one-off
+    # jump alerts once and then goes quiet by itself.
+    prev_results = prev.get("results", []) if isinstance(prev, dict) else []
+    prev_avail = {r["date"]: r["available"] for r in prev_results
+                  if isinstance(r.get("available"), int)}
+    releases = []
+    for r in results:
+        before = prev_avail.get(r["date"])
+        if before is None or not isinstance(r.get("available"), int):
+            continue  # never seen before, or a failed read: not a release
+        gained = r["available"] - before
+        if gained >= RELEASE_MIN:
+            releases.append({**r, "gained": gained, "was": before})
+
     print(f"\nchecked {len(results)} showtimes, {len(errors)} error(s)")
     print(f"showtimes with an IDEAL centre pair: {len(ideal)} ({len(newly)} new)")
     for r in ideal:
@@ -228,14 +253,27 @@ def main():
     if args.json:
         print(json.dumps(results, indent=2))
 
-    if newly and args.notify_issue:
-        import notify_issue
-        ok, detail = notify_issue.create_issue(newly)
-        print(f"notify(issue): {'ok' if ok else 'FAILED'} - {detail}")
-        if not ok:
-            return 3  # found seats but couldn't tell anyone - must not look clean
+    if releases:
+        print(f"\nSEATS RELEASED on {len(releases)} showtime(s):")
+        for r in releases:
+            print(f"  {r['date']} {r['display']}  +{r['gained']} "
+                  f"({r['was']} -> {r['available']} free)")
 
-    return 10 if newly else 0
+    failed_alert = False
+    if args.notify_issue:
+        import notify_issue
+        for hits, kind in ((newly, "seats"), (releases, "release")):
+            if not hits:
+                continue
+            ok, detail = notify_issue.create_issue(hits, kind=kind)
+            print(f"notify({kind}): {'ok' if ok else 'FAILED'} - {detail}")
+            if not ok:
+                failed_alert = True
+
+    # Found something but couldn't tell anyone - must not look clean.
+    if failed_alert:
+        return 3
+    return 10 if (newly or releases) else 0
 
 
 if __name__ == "__main__":
