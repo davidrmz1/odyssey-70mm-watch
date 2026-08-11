@@ -214,6 +214,24 @@ With one machine doing everything, `deadman.yml` is what tells you if it stops.
 
 ---
 
+## Shutting it down
+
+Once the tickets are booked:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File windows\teardown.ps1
+```
+
+Order matters, which is why this is a script rather than a list. `deadman.yml`
+runs in Actions independently of this PC and opens an issue when heartbeats go
+stale for 12 hours — so removing the tasks first would alert you about a system
+you switched off on purpose. The script disables the workflow first, then
+removes the three tasks (which also removes their wake timers, so the PC stops
+waking itself).
+
+It deliberately does not touch the gh CLI login, git credentials, Python, the
+local checkout, or the GitHub repo; commands for those are printed at the end.
+
 ## Alerts
 
 When a showtime gains a centred pair, the PC opens a GitHub issue that is
