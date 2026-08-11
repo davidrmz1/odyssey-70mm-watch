@@ -1,5 +1,11 @@
 # odyssey-70mm-watch
 
+> **Running live.** Scheduled tasks on a Windows PC are polling Fandango every
+> 2–5 minutes right now. To stop everything once the tickets are booked:
+> `powershell -ExecutionPolicy Bypass -File windows\teardown.ps1`
+> (disable `deadman.yml` *before* removing the tasks — the script does this for
+> you). See `CLAUDE.md` and `windows/SETUP.md`.
+
 Watches **Regal Irvine Spectrum** for newly-released **IMAX 70mm** showtimes of
 *The Odyssey* and emails/texts when one appears in the evening window.
 
