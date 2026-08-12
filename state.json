@@ -313,10 +313,10 @@
       "band": "evening",
       "date": "2026-08-11",
       "display": "7:15p",
-      "expired": false,
+      "expired": true,
       "key": "2026-08-11T19:15",
       "showtime_id": 553223865,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "19:15",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-11%2B19%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-24d873277bb75939958d0d230ae74c4e512a22cf06f95a030d5caffe8a812e60"
     },
