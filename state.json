@@ -456,10 +456,10 @@
       "band": "morning",
       "date": "2026-08-14",
       "display": "11:40a",
-      "expired": false,
+      "expired": true,
       "key": "2026-08-14T11:40",
       "showtime_id": 556398847,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "11:40",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-14%2B11%3A40&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-e84ce2b654cb980e0b454a311585f2c8633fc6123ef760b0ac2ffdab95490ada"
     },
