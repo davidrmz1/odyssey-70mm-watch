@@ -1081,19 +1081,8 @@
     },
     {
       "auditorium": 12,
-      "available": 31,
+      "available": 26,
       "best": [
-        {
-          "centre_offset": 0.17,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.194,
-          "seats": [
-            "B4",
-            "B3"
-          ]
-        },
         {
           "centre_offset": 0.012,
           "depth": 0.0,
@@ -1117,17 +1106,6 @@
           ]
         },
         {
-          "centre_offset": 0.196,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.22,
-          "seats": [
-            "B3",
-            "B2"
-          ]
-        },
-        {
           "centre_offset": 0.038,
           "depth": 0.0,
           "ideal": false,
@@ -1137,23 +1115,45 @@
             "A10",
             "A9"
           ]
+        },
+        {
+          "centre_offset": 0.041,
+          "depth": 0.0,
+          "ideal": false,
+          "row": "A",
+          "score": 1.241,
+          "seats": [
+            "A13",
+            "A12"
+          ]
+        },
+        {
+          "centre_offset": 0.065,
+          "depth": 0.0,
+          "ideal": false,
+          "row": "A",
+          "score": 1.265,
+          "seats": [
+            "A9",
+            "A8"
+          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.17,
-        "depth": 0.088,
+        "centre_offset": 0.012,
+        "depth": 0.0,
         "ideal": false,
-        "row": "B",
-        "score": 1.194,
+        "row": "A",
+        "score": 1.212,
         "seats": [
-          "B4",
-          "B3"
+          "A11",
+          "A10"
         ]
       },
       "date": "2026-08-22",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 25,
+      "pairs_total": 21,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-22%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-8243c68a75708103ff52a709ebfe49018ff7d5d037fd4d6cc966ddb5ca8a632c"
     },
@@ -1627,7 +1627,7 @@
     },
     {
       "auditorium": 12,
-      "available": 58,
+      "available": 59,
       "best": [
         {
           "centre_offset": 0.012,
