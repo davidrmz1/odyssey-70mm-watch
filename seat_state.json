@@ -2095,30 +2095,8 @@
     },
     {
       "auditorium": 12,
-      "available": 61,
+      "available": 58,
       "best": [
-        {
-          "centre_offset": 0.197,
-          "depth": 0.736,
-          "ideal": true,
-          "row": "I",
-          "score": 0.47,
-          "seats": [
-            "I28",
-            "I27"
-          ]
-        },
-        {
-          "centre_offset": 0.224,
-          "depth": 0.736,
-          "ideal": false,
-          "row": "I",
-          "score": 0.497,
-          "seats": [
-            "I29",
-            "I28"
-          ]
-        },
         {
           "centre_offset": 0.012,
           "depth": 0.088,
@@ -2151,23 +2129,45 @@
             "C21",
             "C20"
           ]
+        },
+        {
+          "centre_offset": 0.039,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.062,
+          "seats": [
+            "B9",
+            "B8"
+          ]
+        },
+        {
+          "centre_offset": 0.04,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.064,
+          "seats": [
+            "B12",
+            "B11"
+          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.197,
-        "depth": 0.736,
-        "ideal": true,
-        "row": "I",
-        "score": 0.47,
+        "centre_offset": 0.198,
+        "depth": 0.176,
+        "ideal": false,
+        "row": "C",
+        "score": 1.046,
         "seats": [
-          "I28",
-          "I27"
+          "C21",
+          "C20"
         ]
       },
       "date": "2026-09-04",
       "display": "6:30p",
-      "pairs_ideal": 1,
-      "pairs_total": 51,
+      "pairs_ideal": 0,
+      "pairs_total": 49,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-04%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-229e7affbe1fa01541fa4e1f8596f401795fc6b9cf58e8490251a0eef208509f"
     },
