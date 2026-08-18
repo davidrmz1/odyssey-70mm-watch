@@ -654,10 +654,10 @@
       "band": "too_late",
       "date": "2026-08-17",
       "display": "10:40p",
-      "expired": false,
+      "expired": true,
       "key": "2026-08-17T22:40",
       "showtime_id": 556398861,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "22:40",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-17%2B22%3A40&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-1ef6dcac6feeb7ec0576ae1cadd1534f39e987dff7a2349386b0d411a26dc3be"
     },
