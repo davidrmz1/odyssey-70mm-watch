@@ -5,7 +5,7 @@ Guidance for Claude Code (claude.ai/code) working in this repository.
 ## Read this first: there is live infrastructure attached to this repo
 
 This is not a dormant codebase. As of 2026-08-11 it is **actively running on a
-Windows PC** (`C:\Users\mikee\odyssey-70mm-watch`) via Task Scheduler, hitting
+Windows PC** (`C:\Users\mikee\Documents\Projects\odyssey-70mm-watch`) via Task Scheduler, hitting
 Fandango's servers around the clock and able to send the owner phone
 notifications. Assume any change you make has immediate real-world effect.
 

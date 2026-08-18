@@ -46,12 +46,12 @@ No packages to install. The scripts use only the standard library.
 ## 2. Get the code
 
 ```cmd
-cd %USERPROFILE%
+cd %USERPROFILE%\Documents\Projects
 git clone https://github.com/davidrmz1/odyssey-70mm-watch.git
 ```
 
 No Git? Download the ZIP from the repo page and extract it to
-`C:\Users\<you>\odyssey-70mm-watch`.
+`C:\Users\<you>\Documents\Projects\odyssey-70mm-watch`.
 
 ## 3. Create a scoped token
 
@@ -82,7 +82,7 @@ Otherwise, make it **fine-grained** and give it access to nothing else:
 Save it beside the scripts as `gh_token.txt`:
 
 ```cmd
-cd %USERPROFILE%\odyssey-70mm-watch
+cd %USERPROFILE%\Documents\Projects\odyssey-70mm-watch
 echo github_pat_YOUR_TOKEN_HERE> gh_token.txt
 ```
 
@@ -117,7 +117,7 @@ this machine is being blocked too — tell Claude.
 Run **PowerShell as Administrator** and paste:
 
 ```powershell
-$bat = "$env:USERPROFILE\odyssey-70mm-watch\windows\run_seat_check.bat"
+$bat = "$env:USERPROFILE\Documents\Projects\odyssey-70mm-watch\windows\run_seat_check.bat"
 $action  = New-ScheduledTaskAction -Execute $bat
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) `
            -RepetitionInterval (New-TimeSpan -Hours 2)
@@ -147,7 +147,7 @@ runs in 55h against ~239 expected, worst gap 5.9h). `watch.yml`'s cron is
 commented out so the two never double-alert or fight over `state.json`.
 
 ```powershell
-$bat = "$env:USERPROFILE\odyssey-70mm-watch\windows\run_watch_dates.bat"
+$bat = "$env:USERPROFILE\Documents\Projects\odyssey-70mm-watch\windows\run_watch_dates.bat"
 $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries `
      -AllowStartIfOnBatteries -WakeToRun -MultipleInstances IgnoreNew `
      -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
@@ -174,7 +174,7 @@ rarely collides with a frontier run.
 Register the actions through `run_hidden.vbs`, not the `.bat` directly:
 
 ```powershell
-$vbs = "$env:USERPROFILE\odyssey-70mm-watch\windows\run_hidden.vbs"
+$vbs = "$env:USERPROFILE\Documents\Projects\odyssey-70mm-watch\windows\run_hidden.vbs"
 New-ScheduledTaskAction -Execute "$env:SystemRoot\System32\wscript.exe" `
   -Argument ('"{0}" "{1}" frontier' -f $vbs, $bat)
 ```

@@ -6,7 +6,7 @@ REM which is why this runs on a home PC rather than GitHub Actions.
 setlocal enabledelayedexpansion
 
 REM Edit this if you cloned somewhere else.
-set REPO_DIR=%USERPROFILE%\odyssey-70mm-watch
+set REPO_DIR=%USERPROFILE%\Documents\Projects\odyssey-70mm-watch
 
 if not exist "%REPO_DIR%\seat_check.py" (
   echo ERROR: cannot find seat_check.py under "%REPO_DIR%"

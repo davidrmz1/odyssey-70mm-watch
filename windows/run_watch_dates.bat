@@ -9,7 +9,7 @@ REM Usage: run_watch_dates.bat [frontier|full]     (default: frontier)
 
 setlocal enabledelayedexpansion
 
-set REPO_DIR=%USERPROFILE%\odyssey-70mm-watch
+set REPO_DIR=%USERPROFILE%\Documents\Projects\odyssey-70mm-watch
 
 set MODE=%~1
 if "%MODE%"=="" set MODE=frontier

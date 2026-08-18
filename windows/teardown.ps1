@@ -76,7 +76,7 @@ Done. Nothing is checking any more and the PC will stop waking itself.
 Optional, none of it required:
 
   Delete the local checkout (cannot run from inside itself):
-    Remove-Item -Recurse -Force "`$env:USERPROFILE\odyssey-70mm-watch"
+    Remove-Item -Recurse -Force "`$env:USERPROFILE\Documents\Projects\odyssey-70mm-watch"
 
   Remove the Python installed for this project (skip if you use it elsewhere):
     winget uninstall Python.Python.3.13
