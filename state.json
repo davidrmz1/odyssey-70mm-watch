@@ -701,7 +701,7 @@
       "expired": false,
       "key": "2026-08-18T19:00",
       "showtime_id": 556398869,
-      "status": "available",
+      "status": "soldout",
       "time": "19:00",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-18%2B19%3A00&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-8eafab19143ada5b0fdc9de5e142d775e38ebe4446f3ee12b179e90a9248733e"
     },
