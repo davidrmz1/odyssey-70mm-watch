@@ -23,70 +23,6 @@
     [
       "2026-08-19",
       "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-20",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-21",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-22",
-      "HTTPError: HTTP Error 500: Internal Server Error"
-    ],
-    [
-      "2026-08-23",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-24",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-25",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-26",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-27",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-28",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-29",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-30",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-08-31",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-01",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-02",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-03",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-04",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
     ]
   ],
   "results": [
@@ -919,7 +855,7 @@
     },
     {
       "auditorium": 12,
-      "available": 34,
+      "available": 33,
       "best": [
         {
           "centre_offset": 0.17,
@@ -991,7 +927,7 @@
       "date": "2026-08-19",
       "display": "7:00p",
       "pairs_ideal": 0,
-      "pairs_total": 25,
+      "pairs_total": 24,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-19%2B19%3A00&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-ffd9ee089c0f5062b5b91b109f47e76102e40a0728e68c53f369ce6d1f626bb2"
     },
@@ -1465,19 +1401,8 @@
     },
     {
       "auditorium": 12,
-      "available": 72,
+      "available": 70,
       "best": [
-        {
-          "centre_offset": 0.093,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.941,
-          "seats": [
-            "C17",
-            "C16"
-          ]
-        },
         {
           "centre_offset": 0.118,
           "depth": 0.176,
@@ -1487,17 +1412,6 @@
           "seats": [
             "C9",
             "C8"
-          ]
-        },
-        {
-          "centre_offset": 0.119,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.967,
-          "seats": [
-            "C18",
-            "C17"
           ]
         },
         {
@@ -1521,23 +1435,45 @@
             "C19",
             "C18"
           ]
+        },
+        {
+          "centre_offset": 0.171,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.019,
+          "seats": [
+            "C7",
+            "C6"
+          ]
+        },
+        {
+          "centre_offset": 0.172,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.02,
+          "seats": [
+            "C20",
+            "C19"
+          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.093,
+        "centre_offset": 0.118,
         "depth": 0.176,
         "ideal": false,
         "row": "C",
-        "score": 0.941,
+        "score": 0.966,
         "seats": [
-          "C17",
-          "C16"
+          "C9",
+          "C8"
         ]
       },
       "date": "2026-08-26",
       "display": "9:30p",
       "pairs_ideal": 0,
-      "pairs_total": 55,
+      "pairs_total": 53,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-26%2B21%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-cf830768a1875b4dd2af37a1a19b380066838fff23480ce73613b75c02ef81cc"
     },
@@ -2011,8 +1947,30 @@
     },
     {
       "auditorium": 12,
-      "available": 75,
+      "available": 78,
       "best": [
+        {
+          "centre_offset": 0.355,
+          "depth": 0.473,
+          "ideal": false,
+          "row": "F",
+          "score": 0.61,
+          "seats": [
+            "F7",
+            "F6"
+          ]
+        },
+        {
+          "centre_offset": 0.382,
+          "depth": 0.473,
+          "ideal": false,
+          "row": "F",
+          "score": 0.636,
+          "seats": [
+            "F6",
+            "F5"
+          ]
+        },
         {
           "centre_offset": 0.039,
           "depth": 0.176,
@@ -2045,28 +2003,6 @@
             "C16",
             "C15"
           ]
-        },
-        {
-          "centre_offset": 0.092,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.94,
-          "seats": [
-            "C10",
-            "C9"
-          ]
-        },
-        {
-          "centre_offset": 0.093,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.941,
-          "seats": [
-            "C17",
-            "C16"
-          ]
         }
       ],
       "best_centred": {
@@ -2083,7 +2019,7 @@
       "date": "2026-09-02",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 62,
+      "pairs_total": 64,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-02%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-064e7b5f04f95488bd8bd3cadf2770feaa1d04266dbf75fd5cf007baaac58707"
     },
