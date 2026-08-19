@@ -29,8 +29,24 @@
       "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
     ],
     [
+      "2026-08-21",
+      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
+      "2026-08-22",
+      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
+      "2026-08-23",
+      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
+      "2026-08-24",
+      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
       "2026-08-25",
-      "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
     ],
     [
       "2026-08-26",
@@ -54,26 +70,6 @@
     ],
     [
       "2026-08-31",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-01",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-02",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-03",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-04",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
-    ],
-    [
-      "2026-09-05",
       "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
     ]
   ],
@@ -985,7 +981,7 @@
     },
     {
       "auditorium": 12,
-      "available": 30,
+      "available": 26,
       "best": [
         {
           "centre_offset": 0.041,
@@ -996,17 +992,6 @@
           "seats": [
             "A13",
             "A12"
-          ]
-        },
-        {
-          "centre_offset": 0.225,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.248,
-          "seats": [
-            "B19",
-            "B18"
           ]
         },
         {
@@ -1032,14 +1017,25 @@
           ]
         },
         {
-          "centre_offset": 0.251,
-          "depth": 0.088,
+          "centre_offset": 0.091,
+          "depth": 0.0,
           "ideal": false,
-          "row": "B",
-          "score": 1.275,
+          "row": "A",
+          "score": 1.291,
           "seats": [
-            "B20",
-            "B19"
+            "A8",
+            "A7"
+          ]
+        },
+        {
+          "centre_offset": 0.093,
+          "depth": 0.0,
+          "ideal": false,
+          "row": "A",
+          "score": 1.293,
+          "seats": [
+            "A15",
+            "A14"
           ]
         }
       ],
@@ -1057,7 +1053,7 @@
       "date": "2026-08-20",
       "display": "7:00p",
       "pairs_ideal": 0,
-      "pairs_total": 20,
+      "pairs_total": 16,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-20%2B19%3A00&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-7986a2d7ee3cb881f1f9f762803cda4fc26cfdb76e48389f20972229471cb865"
     },
