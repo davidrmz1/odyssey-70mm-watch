@@ -720,10 +720,10 @@
       "band": "morning",
       "date": "2026-08-19",
       "display": "8:00a",
-      "expired": false,
+      "expired": true,
       "key": "2026-08-19T08:00",
       "showtime_id": 556398875,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "08:00",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-19%2B08%3A00&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-310461c9c5c8fd1bf5c97d14d54efe909b2d15649036bd6c2d1d559d80bc1ea0"
     },
