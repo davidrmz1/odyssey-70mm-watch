@@ -1471,7 +1471,7 @@
     },
     {
       "auditorium": 12,
-      "available": 48,
+      "available": 49,
       "best": [
         {
           "centre_offset": 0.039,
@@ -1549,7 +1549,7 @@
     },
     {
       "auditorium": 12,
-      "available": 42,
+      "available": 41,
       "best": [
         {
           "centre_offset": 0.091,
@@ -1627,7 +1627,7 @@
     },
     {
       "auditorium": 12,
-      "available": 45,
+      "available": 44,
       "best": [
         {
           "centre_offset": 0.039,
@@ -1699,7 +1699,7 @@
       "date": "2026-08-29",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 35,
+      "pairs_total": 33,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-29%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-9af0aa38667e8a13fd1537d5a0e838c2b3ca4a7f108385ce77a0132cb1d9fcb6"
     },
