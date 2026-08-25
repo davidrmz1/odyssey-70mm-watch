@@ -2407,7 +2407,7 @@
     },
     {
       "auditorium": 12,
-      "available": 71,
+      "available": 74,
       "best": [
         {
           "centre_offset": 0.039,
@@ -2432,6 +2432,17 @@
           ]
         },
         {
+          "centre_offset": 0.066,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 0.914,
+          "seats": [
+            "C16",
+            "C15"
+          ]
+        },
+        {
           "centre_offset": 0.092,
           "depth": 0.176,
           "ideal": false,
@@ -2443,25 +2454,14 @@
           ]
         },
         {
-          "centre_offset": 0.118,
+          "centre_offset": 0.093,
           "depth": 0.176,
           "ideal": false,
           "row": "C",
-          "score": 0.966,
+          "score": 0.941,
           "seats": [
-            "C9",
-            "C8"
-          ]
-        },
-        {
-          "centre_offset": 0.144,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.992,
-          "seats": [
-            "C8",
-            "C7"
+            "C17",
+            "C16"
           ]
         }
       ],
@@ -2479,7 +2479,7 @@
       "date": "2026-09-08",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 59,
+      "pairs_total": 62,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-08%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-81b0257a1fbe5c7cb2da29d53ee3904ba2e545937cd6b8bc82435a6ec3228d67"
     },
@@ -2875,7 +2875,7 @@
     },
     {
       "auditorium": 12,
-      "available": 77,
+      "available": 75,
       "best": [
         {
           "centre_offset": 0.039,
@@ -2947,7 +2947,7 @@
       "date": "2026-09-14",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 63,
+      "pairs_total": 62,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-14%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-7dd010cb96f7f0a2ca31cf089c3dddd4fce3b37e6f6bab378201e3f3d7d6160a"
     },
@@ -3031,7 +3031,7 @@
     },
     {
       "auditorium": 12,
-      "available": 71,
+      "available": 72,
       "best": [
         {
           "centre_offset": 0.065,
