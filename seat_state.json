@@ -1240,28 +1240,6 @@
       "available": 38,
       "best": [
         {
-          "centre_offset": 0.118,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.141,
-          "seats": [
-            "B6",
-            "B5"
-          ]
-        },
-        {
-          "centre_offset": 0.144,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.168,
-          "seats": [
-            "B5",
-            "B4"
-          ]
-        },
-        {
           "centre_offset": 0.146,
           "depth": 0.088,
           "ideal": false,
@@ -1270,62 +1248,6 @@
           "seats": [
             "B16",
             "B15"
-          ]
-        },
-        {
-          "centre_offset": 0.17,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.194,
-          "seats": [
-            "B4",
-            "B3"
-          ]
-        },
-        {
-          "centre_offset": 0.172,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.196,
-          "seats": [
-            "B17",
-            "B16"
-          ]
-        }
-      ],
-      "best_centred": {
-        "centre_offset": 0.118,
-        "depth": 0.088,
-        "ideal": false,
-        "row": "B",
-        "score": 1.141,
-        "seats": [
-          "B6",
-          "B5"
-        ]
-      },
-      "date": "2026-08-24",
-      "display": "6:30p",
-      "pairs_ideal": 0,
-      "pairs_total": 31,
-      "total": 387,
-      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-24%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-eaae86aaab93304c1ae52f6e6ee3fbc95e09d2699ed37536bbf55a04da48e465"
-    },
-    {
-      "auditorium": 12,
-      "available": 38,
-      "best": [
-        {
-          "centre_offset": 0.144,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.168,
-          "seats": [
-            "B5",
-            "B4"
           ]
         },
         {
@@ -1374,20 +1296,98 @@
         }
       ],
       "best_centred": {
-        "centre_offset": 0.144,
+        "centre_offset": 0.146,
         "depth": 0.088,
         "ideal": false,
         "row": "B",
-        "score": 1.168,
+        "score": 1.169,
         "seats": [
-          "B5",
-          "B4"
+          "B16",
+          "B15"
+        ]
+      },
+      "date": "2026-08-24",
+      "display": "6:30p",
+      "pairs_ideal": 0,
+      "pairs_total": 29,
+      "total": 387,
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-24%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-eaae86aaab93304c1ae52f6e6ee3fbc95e09d2699ed37536bbf55a04da48e465"
+    },
+    {
+      "auditorium": 12,
+      "available": 40,
+      "best": [
+        {
+          "centre_offset": 0.119,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.143,
+          "seats": [
+            "B15",
+            "B14"
+          ]
+        },
+        {
+          "centre_offset": 0.144,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.168,
+          "seats": [
+            "B5",
+            "B4"
+          ]
+        },
+        {
+          "centre_offset": 0.146,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.169,
+          "seats": [
+            "B16",
+            "B15"
+          ]
+        },
+        {
+          "centre_offset": 0.17,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.194,
+          "seats": [
+            "B4",
+            "B3"
+          ]
+        },
+        {
+          "centre_offset": 0.172,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.196,
+          "seats": [
+            "B17",
+            "B16"
+          ]
+        }
+      ],
+      "best_centred": {
+        "centre_offset": 0.119,
+        "depth": 0.088,
+        "ideal": false,
+        "row": "B",
+        "score": 1.143,
+        "seats": [
+          "B15",
+          "B14"
         ]
       },
       "date": "2026-08-25",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 29,
+      "pairs_total": 31,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-25%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-c2a99210b27ddee0c312fae2ad26c6dad101f310f1929738eaeeed6ef59ae536"
     },
@@ -2017,8 +2017,19 @@
     },
     {
       "auditorium": 12,
-      "available": 65,
+      "available": 67,
       "best": [
+        {
+          "centre_offset": 0.118,
+          "depth": 0.297,
+          "ideal": true,
+          "row": "D",
+          "score": 0.724,
+          "seats": [
+            "D16",
+            "D15"
+          ]
+        },
         {
           "centre_offset": 0.144,
           "depth": 0.176,
@@ -2062,34 +2073,23 @@
             "B10",
             "B9"
           ]
-        },
-        {
-          "centre_offset": 0.014,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.038,
-          "seats": [
-            "B11",
-            "B10"
-          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.144,
-        "depth": 0.176,
-        "ideal": false,
-        "row": "C",
-        "score": 0.992,
+        "centre_offset": 0.118,
+        "depth": 0.297,
+        "ideal": true,
+        "row": "D",
+        "score": 0.724,
         "seats": [
-          "C8",
-          "C7"
+          "D16",
+          "D15"
         ]
       },
       "date": "2026-09-03",
       "display": "6:30p",
-      "pairs_ideal": 0,
-      "pairs_total": 54,
+      "pairs_ideal": 1,
+      "pairs_total": 55,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-03%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-6f7b536c8d13d3508c84cd5ad7b6d1ff7eccc5e4a498319cdc1ff7317adcd027"
     },
