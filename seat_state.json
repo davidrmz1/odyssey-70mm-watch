@@ -1315,79 +1315,79 @@
     },
     {
       "auditorium": 12,
-      "available": 42,
+      "available": 34,
       "best": [
         {
-          "centre_offset": 0.408,
-          "depth": 0.385,
+          "centre_offset": 0.012,
+          "depth": 0.0,
           "ideal": false,
-          "row": "E",
-          "score": 0.838,
+          "row": "A",
+          "score": 1.212,
           "seats": [
-            "E36",
-            "E35"
+            "A11",
+            "A10"
           ]
         },
         {
-          "centre_offset": 0.119,
-          "depth": 0.088,
+          "centre_offset": 0.014,
+          "depth": 0.0,
           "ideal": false,
-          "row": "B",
-          "score": 1.143,
+          "row": "A",
+          "score": 1.214,
           "seats": [
-            "B15",
-            "B14"
+            "A12",
+            "A11"
           ]
         },
         {
-          "centre_offset": 0.144,
-          "depth": 0.088,
+          "centre_offset": 0.038,
+          "depth": 0.0,
           "ideal": false,
-          "row": "B",
-          "score": 1.168,
+          "row": "A",
+          "score": 1.238,
           "seats": [
-            "B5",
-            "B4"
+            "A10",
+            "A9"
           ]
         },
         {
-          "centre_offset": 0.146,
-          "depth": 0.088,
+          "centre_offset": 0.041,
+          "depth": 0.0,
           "ideal": false,
-          "row": "B",
-          "score": 1.169,
+          "row": "A",
+          "score": 1.241,
           "seats": [
-            "B16",
-            "B15"
+            "A13",
+            "A12"
           ]
         },
         {
-          "centre_offset": 0.17,
+          "centre_offset": 0.223,
           "depth": 0.088,
           "ideal": false,
           "row": "B",
-          "score": 1.194,
+          "score": 1.247,
           "seats": [
-            "B4",
-            "B3"
+            "B2",
+            "B1"
           ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.119,
-        "depth": 0.088,
+        "centre_offset": 0.012,
+        "depth": 0.0,
         "ideal": false,
-        "row": "B",
-        "score": 1.143,
+        "row": "A",
+        "score": 1.212,
         "seats": [
-          "B15",
-          "B14"
+          "A11",
+          "A10"
         ]
       },
       "date": "2026-08-25",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 32,
+      "pairs_total": 24,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-25%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-c2a99210b27ddee0c312fae2ad26c6dad101f310f1929738eaeeed6ef59ae536"
     },
@@ -1471,7 +1471,7 @@
     },
     {
       "auditorium": 12,
-      "available": 49,
+      "available": 52,
       "best": [
         {
           "centre_offset": 0.039,
@@ -1507,6 +1507,17 @@
           ]
         },
         {
+          "centre_offset": 0.487,
+          "depth": 0.297,
+          "ideal": false,
+          "row": "D",
+          "score": 1.092,
+          "seats": [
+            "D39",
+            "D38"
+          ]
+        },
+        {
           "centre_offset": 0.091,
           "depth": 0.088,
           "ideal": false,
@@ -1515,17 +1526,6 @@
           "seats": [
             "B7",
             "B6"
-          ]
-        },
-        {
-          "centre_offset": 0.093,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.117,
-          "seats": [
-            "B14",
-            "B13"
           ]
         }
       ],
@@ -1543,7 +1543,7 @@
       "date": "2026-08-27",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 40,
+      "pairs_total": 41,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-27%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-dda1dcdfe05c92d9c6278a342c59c6c165ba8b7aaf7b38a831878738c67eb2a3"
     },
