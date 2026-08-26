@@ -1471,7 +1471,7 @@
     },
     {
       "auditorium": 12,
-      "available": 46,
+      "available": 44,
       "best": [
         {
           "centre_offset": 0.091,
@@ -1482,17 +1482,6 @@
           "seats": [
             "B7",
             "B6"
-          ]
-        },
-        {
-          "centre_offset": 0.093,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.117,
-          "seats": [
-            "B14",
-            "B13"
           ]
         },
         {
@@ -1507,17 +1496,6 @@
           ]
         },
         {
-          "centre_offset": 0.119,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.143,
-          "seats": [
-            "B15",
-            "B14"
-          ]
-        },
-        {
           "centre_offset": 0.302,
           "depth": 0.176,
           "ideal": false,
@@ -1526,6 +1504,28 @@
           "seats": [
             "C2",
             "C1"
+          ]
+        },
+        {
+          "centre_offset": 0.303,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.151,
+          "seats": [
+            "C25",
+            "C24"
+          ]
+        },
+        {
+          "centre_offset": 0.144,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.168,
+          "seats": [
+            "B5",
+            "B4"
           ]
         }
       ],
@@ -1543,7 +1543,7 @@
       "date": "2026-08-27",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 37,
+      "pairs_total": 34,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-27%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-dda1dcdfe05c92d9c6278a342c59c6c165ba8b7aaf7b38a831878738c67eb2a3"
     },
@@ -1627,7 +1627,7 @@
     },
     {
       "auditorium": 12,
-      "available": 40,
+      "available": 41,
       "best": [
         {
           "centre_offset": 0.119,
