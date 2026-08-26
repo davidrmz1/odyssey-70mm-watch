@@ -2407,41 +2407,8 @@
     },
     {
       "auditorium": 12,
-      "available": 78,
+      "available": 75,
       "best": [
-        {
-          "centre_offset": 0.197,
-          "depth": 0.824,
-          "ideal": false,
-          "row": "J",
-          "score": 0.646,
-          "seats": [
-            "J28",
-            "J27"
-          ]
-        },
-        {
-          "centre_offset": 0.224,
-          "depth": 0.824,
-          "ideal": false,
-          "row": "J",
-          "score": 0.672,
-          "seats": [
-            "J29",
-            "J28"
-          ]
-        },
-        {
-          "centre_offset": 0.25,
-          "depth": 0.824,
-          "ideal": false,
-          "row": "J",
-          "score": 0.698,
-          "seats": [
-            "J30",
-            "J29"
-          ]
-        },
         {
           "centre_offset": 0.039,
           "depth": 0.176,
@@ -2463,6 +2430,39 @@
             "C11",
             "C10"
           ]
+        },
+        {
+          "centre_offset": 0.066,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 0.914,
+          "seats": [
+            "C16",
+            "C15"
+          ]
+        },
+        {
+          "centre_offset": 0.092,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 0.94,
+          "seats": [
+            "C10",
+            "C9"
+          ]
+        },
+        {
+          "centre_offset": 0.093,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 0.941,
+          "seats": [
+            "C17",
+            "C16"
+          ]
         }
       ],
       "best_centred": {
@@ -2479,7 +2479,7 @@
       "date": "2026-09-08",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 65,
+      "pairs_total": 62,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-08%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-81b0257a1fbe5c7cb2da29d53ee3904ba2e545937cd6b8bc82435a6ec3228d67"
     },
