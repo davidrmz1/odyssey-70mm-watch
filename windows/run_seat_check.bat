@@ -50,9 +50,11 @@ REM the results are already on disk and the next sweep retries.
 %PYEXE% publish_state.py --file seat_state.json --message "seats: sweep" --heartbeat seats --min-interval 60 >> "%REPO_DIR%\seat_check.log" 2>&1
 
 REM 0 = nothing new, 10 = centre seats found (issue opened),
-REM 2 = every check failed, 3 = found seats but could not open the issue
+REM 2 = every check failed, 3 = found seats but could not open the issue,
+REM 4 = Fandango Queue-it waiting room in front of ticketing (not us)
 if "%CODE%"=="2" echo ALL CHECKS FAILED - Fandango may be blocking this machine >> "%REPO_DIR%\seat_check.log"
 if "%CODE%"=="3" echo FOUND SEATS BUT COULD NOT ALERT - check the token >> "%REPO_DIR%\seat_check.log"
+if "%CODE%"=="4" echo QUEUED - Fandango waiting room in front of ticketing; not an IP block, resumes by itself >> "%REPO_DIR%\seat_check.log"
 
 endlocal
 exit /b 0

@@ -25,6 +25,7 @@ import re
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 import http.cookiejar
 from collections import defaultdict
@@ -81,6 +82,9 @@ def fetch_seat_map(jump_url, retries=2):
             final = r.geturl()
             html = r.read().decode("utf-8", "replace")
 
+            if "queue-it.net" in final:
+                raise Queued(queue_name(final))
+
             m_sid = re.search(r'"showtimeId":"(\d+)"', html)
             m_sess = re.search(r'"sessionId":"([^"]+)"', html)
             if not (m_sid and m_sess):
@@ -113,6 +117,38 @@ class Blocked(Exception):
     """Fandango refused us (403/429) rather than the showtime being unavailable."""
 
 
+def queue_name(url):
+    """Label for a Queue-it waiting room, read off its own query string."""
+    try:
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+        return (q.get("man") or q.get("e") or ["unnamed"])[0]
+    except Exception:
+        return "unnamed"
+
+
+class Queued(Exception):
+    """Fandango has a Queue-it waiting room in front of ticketing.
+
+    Categorically different from Blocked. Nothing is wrong with this machine, the
+    code, or the showtime: Fandango gates tickets.fandango.com behind a virtual
+    queue during a big presale, so the jump page redirects to queue-it.net and
+    never reaches /mobileexpress/seatselection. showtimeId and sessionId are
+    simply absent, which used to surface as the misleading
+    "sold out or redirected?" ValueError on all 31 showtimes at once.
+
+    First seen 2026-08-21. Config name was
+    "PROD- Dune Part Three (2026) - Fandango DD - Catch All"
+    -- a catch-all for another film's presale, not specific to The Odyssey.
+
+    We do not try to get past it, and that is deliberate. The queue is traffic
+    control the site owner put there on purpose; working around it is the same
+    class of mistake as routing around a 403, and it risks the household's
+    ability to buy tickets at all. So the sweep aborts on the first sighting
+    instead of sending ~90 pointless requests every five minutes, and resumes by
+    itself once Fandango lifts the queue.
+    """
+
+
 class SeatSession:
     """One checkout session reused across many showtimes.
 
@@ -135,6 +171,9 @@ class SeatSession:
                                "Referer": "https://www.fandango.com/"}), timeout=30)
         final = r.geturl()
         html = r.read().decode("utf-8", "replace")
+
+        if "queue-it.net" in final:
+            raise Queued(queue_name(final))
 
         m_sid = re.search(r'"showtimeId":"(\d+)"', html)
         m_sess = re.search(r'"sessionId":"([^"]+)"', html)
@@ -248,6 +287,7 @@ def main():
 
     results, errors = [], []
     blocked_count = 0
+    queued = None
     session = SeatSession()
 
     for s in evening:
@@ -262,6 +302,11 @@ def main():
                 sid_from_page = session.establish(s["url"])
                 data = session.seat_map(sid or sid_from_page)
             info = analyse(data)
+        except Queued as exc:
+            # Every remaining showtime would hit the same queue. Stop now.
+            queued = str(exc)
+            print(f"{s['date']} {s['display']:>7}  QUEUED  {exc}")
+            break
         except Blocked as exc:
             blocked_count += 1
             errors.append((s["date"], f"Blocked: {exc}"))
@@ -284,6 +329,14 @@ def main():
         print(f"{s['date']} {s['display']:>7}  {info['available']:>3}/{info['total']} free  "
               f"pairs {info['pairs_total']:>3} ideal {info['pairs_ideal']:>2}  {cs}{flag}")
         time.sleep(REQUEST_GAP)
+
+    if queued:
+        print(f"\nSWEEP ABORTED: Fandango has a Queue-it waiting room in front of "
+              f"ticketing ({queued}).")
+        print("  This is NOT an IP block and NOT sold out. The jump page redirects to\n"
+              "  queue-it.net, so showtimeId/sessionId never appear in the HTML.")
+        print("  Nothing to fix on this end; it resumes by itself once Fandango\n"
+              "  lifts the queue. Seat state left untouched.")
 
     tripped, detail = throttle.record(blocked_count, len(evening))
     if tripped:
@@ -342,6 +395,9 @@ def main():
              "errors": errors}, indent=2, sort_keys=True))
     else:
         print("no showtimes checked successfully - leaving seat state untouched")
+        if queued:
+            # Distinct from 2: not our IP, not our code, nothing to retry harder at.
+            return 4
         if errors:
             # Must not exit 0: a sweep that checked nothing is a failure, and
             # reporting success made a fully-403'd run look green in Actions.
