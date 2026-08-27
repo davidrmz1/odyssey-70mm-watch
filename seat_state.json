@@ -15,6 +15,26 @@
     [
       "2026-08-09",
       "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
+      "2026-08-29",
+      "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    ],
+    [
+      "2026-08-30",
+      "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    ],
+    [
+      "2026-08-31",
+      "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    ],
+    [
+      "2026-09-01",
+      "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    ],
+    [
+      "2026-09-02",
+      "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
     ]
   ],
   "results": [
