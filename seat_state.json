@@ -1393,79 +1393,79 @@
     },
     {
       "auditorium": 12,
-      "available": 45,
+      "available": 43,
       "best": [
         {
-          "centre_offset": 0.013,
-          "depth": 0.561,
-          "ideal": true,
-          "row": "G",
-          "score": 0.092,
-          "seats": [
-            "G20",
-            "G19"
-          ]
-        },
-        {
-          "centre_offset": 0.067,
+          "centre_offset": 0.118,
           "depth": 0.088,
           "ideal": false,
           "row": "B",
-          "score": 1.09,
+          "score": 1.141,
           "seats": [
-            "B13",
-            "B12"
+            "B6",
+            "B5"
           ]
         },
         {
-          "centre_offset": 0.093,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.117,
-          "seats": [
-            "B14",
-            "B13"
-          ]
-        },
-        {
-          "centre_offset": 0.276,
+          "centre_offset": 0.302,
           "depth": 0.176,
           "ideal": false,
           "row": "C",
-          "score": 1.124,
+          "score": 1.15,
           "seats": [
-            "C3",
-            "C2"
+            "C2",
+            "C1"
           ]
         },
         {
-          "centre_offset": 0.119,
+          "centre_offset": 0.144,
           "depth": 0.088,
           "ideal": false,
           "row": "B",
-          "score": 1.143,
+          "score": 1.168,
           "seats": [
-            "B15",
-            "B14"
+            "B5",
+            "B4"
+          ]
+        },
+        {
+          "centre_offset": 0.17,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.194,
+          "seats": [
+            "B4",
+            "B3"
+          ]
+        },
+        {
+          "centre_offset": 0.172,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.196,
+          "seats": [
+            "B17",
+            "B16"
           ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.013,
-        "depth": 0.561,
-        "ideal": true,
-        "row": "G",
-        "score": 0.092,
+        "centre_offset": 0.118,
+        "depth": 0.088,
+        "ideal": false,
+        "row": "B",
+        "score": 1.141,
         "seats": [
-          "G20",
-          "G19"
+          "B6",
+          "B5"
         ]
       },
       "date": "2026-08-26",
       "display": "9:30p",
-      "pairs_ideal": 1,
-      "pairs_total": 33,
+      "pairs_ideal": 0,
+      "pairs_total": 30,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-26%2B21%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-cf830768a1875b4dd2af37a1a19b380066838fff23480ce73613b75c02ef81cc"
     },
