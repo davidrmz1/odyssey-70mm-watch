@@ -1627,7 +1627,7 @@
     },
     {
       "auditorium": 12,
-      "available": 17,
+      "available": 16,
       "best": [
         {
           "centre_offset": 0.014,
@@ -2095,7 +2095,7 @@
     },
     {
       "auditorium": 12,
-      "available": 49,
+      "available": 47,
       "best": [
         {
           "centre_offset": 0.012,
@@ -2167,7 +2167,7 @@
       "date": "2026-09-04",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 41,
+      "pairs_total": 40,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-04%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-229e7affbe1fa01541fa4e1f8596f401795fc6b9cf58e8490251a0eef208509f"
     },
@@ -2485,7 +2485,7 @@
     },
     {
       "auditorium": 12,
-      "available": 63,
+      "available": 64,
       "best": [
         {
           "centre_offset": 0.171,
