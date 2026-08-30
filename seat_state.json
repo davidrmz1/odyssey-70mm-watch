@@ -2452,8 +2452,19 @@
     },
     {
       "auditorium": 12,
-      "available": 63,
+      "available": 64,
       "best": [
+        {
+          "centre_offset": 0.171,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.019,
+          "seats": [
+            "C7",
+            "C6"
+          ]
+        },
         {
           "centre_offset": 0.012,
           "depth": 0.088,
@@ -2477,6 +2488,17 @@
           ]
         },
         {
+          "centre_offset": 0.197,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.045,
+          "seats": [
+            "C6",
+            "C5"
+          ]
+        },
+        {
           "centre_offset": 0.039,
           "depth": 0.088,
           "ideal": false,
@@ -2486,45 +2508,23 @@
             "B9",
             "B8"
           ]
-        },
-        {
-          "centre_offset": 0.04,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.064,
-          "seats": [
-            "B12",
-            "B11"
-          ]
-        },
-        {
-          "centre_offset": 0.223,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 1.071,
-          "seats": [
-            "C5",
-            "C4"
-          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.012,
-        "depth": 0.088,
+        "centre_offset": 0.171,
+        "depth": 0.176,
         "ideal": false,
-        "row": "B",
-        "score": 1.036,
+        "row": "C",
+        "score": 1.019,
         "seats": [
-          "B10",
-          "B9"
+          "C7",
+          "C6"
         ]
       },
       "date": "2026-09-09",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 49,
+      "pairs_total": 51,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-09%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-aa743d4a1af55dcb7f3a43c0056915a2b09f5835535d5c4768871162202414ea"
     },
