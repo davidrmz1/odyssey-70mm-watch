@@ -2218,19 +2218,8 @@
     },
     {
       "auditorium": 12,
-      "available": 50,
+      "available": 48,
       "best": [
-        {
-          "centre_offset": 0.171,
-          "depth": 0.385,
-          "ideal": true,
-          "row": "E",
-          "score": 0.601,
-          "seats": [
-            "E27",
-            "E26"
-          ]
-        },
         {
           "centre_offset": 0.039,
           "depth": 0.088,
@@ -2274,23 +2263,34 @@
             "B7",
             "B6"
           ]
+        },
+        {
+          "centre_offset": 0.093,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.117,
+          "seats": [
+            "B14",
+            "B13"
+          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.171,
-        "depth": 0.385,
-        "ideal": true,
-        "row": "E",
-        "score": 0.601,
+        "centre_offset": 0.039,
+        "depth": 0.088,
+        "ideal": false,
+        "row": "B",
+        "score": 1.062,
         "seats": [
-          "E27",
-          "E26"
+          "B9",
+          "B8"
         ]
       },
       "date": "2026-09-06",
       "display": "6:30p",
-      "pairs_ideal": 1,
-      "pairs_total": 40,
+      "pairs_ideal": 0,
+      "pairs_total": 39,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-06%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-6cc9f0f968cd5b68e5a79b7561c05072b0ddd6c494befefe9f0179735bb5f96d"
     },
@@ -2530,7 +2530,7 @@
     },
     {
       "auditorium": 12,
-      "available": 64,
+      "available": 62,
       "best": [
         {
           "centre_offset": 0.144,
@@ -2541,17 +2541,6 @@
           "seats": [
             "C8",
             "C7"
-          ]
-        },
-        {
-          "centre_offset": 0.145,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.993,
-          "seats": [
-            "C19",
-            "C18"
           ]
         },
         {
@@ -2566,17 +2555,6 @@
           ]
         },
         {
-          "centre_offset": 0.172,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 1.02,
-          "seats": [
-            "C20",
-            "C19"
-          ]
-        },
-        {
           "centre_offset": 0.012,
           "depth": 0.088,
           "ideal": false,
@@ -2585,6 +2563,28 @@
           "seats": [
             "B10",
             "B9"
+          ]
+        },
+        {
+          "centre_offset": 0.014,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.038,
+          "seats": [
+            "B11",
+            "B10"
+          ]
+        },
+        {
+          "centre_offset": 0.197,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.045,
+          "seats": [
+            "C6",
+            "C5"
           ]
         }
       ],
@@ -2602,13 +2602,13 @@
       "date": "2026-09-10",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 55,
+      "pairs_total": 53,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-10%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-e17f17c965f03db6093d8556d70d45c24fb99c2c75a82b99f11c79a070d94d34"
     },
     {
       "auditorium": 12,
-      "available": 50,
+      "available": 47,
       "best": [
         {
           "centre_offset": 0.039,
@@ -2680,7 +2680,7 @@
       "date": "2026-09-11",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 39,
+      "pairs_total": 35,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-11%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-af14d7baa55469fefee3befe8883e485f50a4cbd5f65ef47182d3111bd311edf"
     },
