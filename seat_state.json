@@ -1750,7 +1750,7 @@
     },
     {
       "auditorium": 12,
-      "available": 49,
+      "available": 47,
       "best": [
         {
           "centre_offset": 0.039,
@@ -2140,7 +2140,7 @@
     },
     {
       "auditorium": 12,
-      "available": 43,
+      "available": 42,
       "best": [
         {
           "centre_offset": 0.067,
@@ -2530,7 +2530,7 @@
     },
     {
       "auditorium": 12,
-      "available": 63,
+      "available": 62,
       "best": [
         {
           "centre_offset": 0.144,
