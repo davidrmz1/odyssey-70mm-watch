@@ -10,7 +10,7 @@
     ],
     [
       "2026-08-08",
-      "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+      "HTTPError: HTTP Error 503: Service Unavailable"
     ],
     [
       "2026-08-09",
@@ -1750,7 +1750,7 @@
     },
     {
       "auditorium": 12,
-      "available": 47,
+      "available": 45,
       "best": [
         {
           "centre_offset": 0.039,
@@ -1761,17 +1761,6 @@
           "seats": [
             "B9",
             "B8"
-          ]
-        },
-        {
-          "centre_offset": 0.04,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.064,
-          "seats": [
-            "B12",
-            "B11"
           ]
         },
         {
@@ -1786,17 +1775,6 @@
           ]
         },
         {
-          "centre_offset": 0.067,
-          "depth": 0.088,
-          "ideal": false,
-          "row": "B",
-          "score": 1.09,
-          "seats": [
-            "B13",
-            "B12"
-          ]
-        },
-        {
           "centre_offset": 0.091,
           "depth": 0.088,
           "ideal": false,
@@ -1805,6 +1783,28 @@
           "seats": [
             "B7",
             "B6"
+          ]
+        },
+        {
+          "centre_offset": 0.118,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.141,
+          "seats": [
+            "B6",
+            "B5"
+          ]
+        },
+        {
+          "centre_offset": 0.119,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.143,
+          "seats": [
+            "B15",
+            "B14"
           ]
         }
       ],
@@ -1822,7 +1822,7 @@
       "date": "2026-08-31",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 38,
+      "pairs_total": 35,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-08-31%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-86ebcb2fab73e6cd82bc8d4f49f6712383599d6c0185fb7283be9026c9396b16"
     },
