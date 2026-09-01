@@ -15,6 +15,14 @@
     [
       "2026-08-09",
       "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
+      "2026-09-11",
+      "HTTPError: HTTP Error 500: Internal Server Error"
+    ],
+    [
+      "2026-09-14",
+      "HTTPError: HTTP Error 503: Service Unavailable"
     ]
   ],
   "results": [
@@ -2686,7 +2694,7 @@
     },
     {
       "auditorium": 12,
-      "available": 54,
+      "available": 53,
       "best": [
         {
           "centre_offset": 0.039,
@@ -2758,7 +2766,7 @@
       "date": "2026-09-12",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 41,
+      "pairs_total": 39,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-12%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-d6ef9ddd3f4eca3d975a0329aff23eddef52bb4e44a126eb999f110b1158602d"
     },
