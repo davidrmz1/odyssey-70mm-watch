@@ -15,6 +15,10 @@
     [
       "2026-08-09",
       "ValueError: showtimeId/sessionId not present (sold out or redirected?)"
+    ],
+    [
+      "2026-09-08",
+      "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
     ]
   ],
   "results": [
@@ -1906,19 +1910,8 @@
     },
     {
       "auditorium": 12,
-      "available": 54,
+      "available": 52,
       "best": [
-        {
-          "centre_offset": 0.434,
-          "depth": 0.385,
-          "ideal": false,
-          "row": "E",
-          "score": 0.864,
-          "seats": [
-            "E37",
-            "E36"
-          ]
-        },
         {
           "centre_offset": 0.039,
           "depth": 0.088,
@@ -1962,6 +1955,17 @@
             "B7",
             "B6"
           ]
+        },
+        {
+          "centre_offset": 0.276,
+          "depth": 0.176,
+          "ideal": false,
+          "row": "C",
+          "score": 1.124,
+          "seats": [
+            "C3",
+            "C2"
+          ]
         }
       ],
       "best_centred": {
@@ -1978,7 +1982,7 @@
       "date": "2026-09-02",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 42,
+      "pairs_total": 41,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-02%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-064e7b5f04f95488bd8bd3cadf2770feaa1d04266dbf75fd5cf007baaac58707"
     },
