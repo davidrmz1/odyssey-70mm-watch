@@ -1,5 +1,5 @@
 {
-  "horizon": "2026-09-28",
+  "horizon": "2026-09-30",
   "shows": {
     "2026-08-06T08:00": {
       "band": "morning",
@@ -2135,6 +2135,39 @@
       "time": "18:15",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-25%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-1a57192e8b2122a51eade066d1e551f713cc7af8217b9a249e29b89ed9a660c5"
     },
+    "2026-09-27T10:15": {
+      "band": "morning",
+      "date": "2026-09-27",
+      "display": "10:15a",
+      "expired": false,
+      "key": "2026-09-27T10:15",
+      "showtime_id": 563202521,
+      "status": "available",
+      "time": "10:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-27%2B10%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-888977f0e106e45951b343dc00c87671bedf120c3626da36aaa33c7cb246d036"
+    },
+    "2026-09-27T14:15": {
+      "band": "afternoon",
+      "date": "2026-09-27",
+      "display": "2:15p",
+      "expired": false,
+      "key": "2026-09-27T14:15",
+      "showtime_id": 563202522,
+      "status": "available",
+      "time": "14:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-27%2B14%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-3728b5cfd3bdbde8abe87cfe9d94a8924f85a5f176bfab02dd4a2e274b0a9dde"
+    },
+    "2026-09-27T18:15": {
+      "band": "evening",
+      "date": "2026-09-27",
+      "display": "6:15p",
+      "expired": false,
+      "key": "2026-09-27T18:15",
+      "showtime_id": 563202523,
+      "status": "available",
+      "time": "18:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-27%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-55a3dc5468e5650813e7e787e5e849663480f291b9cb5beca3e0b694613272c4"
+    },
     "2026-09-28T10:15": {
       "band": "morning",
       "date": "2026-09-28",
@@ -2167,6 +2200,72 @@
       "status": "available",
       "time": "18:15",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-28%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-88030e40e5ee69c4767ce2e67152b53335dc989c2f723c8b3fc5a8e55dcabb79"
+    },
+    "2026-09-29T10:15": {
+      "band": "morning",
+      "date": "2026-09-29",
+      "display": "10:15a",
+      "expired": false,
+      "key": "2026-09-29T10:15",
+      "showtime_id": 563202529,
+      "status": "available",
+      "time": "10:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-29%2B10%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-67b37a25d7058651d723001b27df1643168fb740a677b091ef52b90ae0aac2b0"
+    },
+    "2026-09-29T14:15": {
+      "band": "afternoon",
+      "date": "2026-09-29",
+      "display": "2:15p",
+      "expired": false,
+      "key": "2026-09-29T14:15",
+      "showtime_id": 563202528,
+      "status": "available",
+      "time": "14:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-29%2B14%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-2f9431e4acb2433b1107fbed5da37b290abb0cda2d05b1a9160f4cbedfbd708f"
+    },
+    "2026-09-29T18:15": {
+      "band": "evening",
+      "date": "2026-09-29",
+      "display": "6:15p",
+      "expired": false,
+      "key": "2026-09-29T18:15",
+      "showtime_id": 563202527,
+      "status": "available",
+      "time": "18:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-29%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-5d00a58da031f0cdbe5c2bbbf285b518260814908ac0445fcec81c512ecbab25"
+    },
+    "2026-09-30T10:15": {
+      "band": "morning",
+      "date": "2026-09-30",
+      "display": "10:15a",
+      "expired": false,
+      "key": "2026-09-30T10:15",
+      "showtime_id": 563202532,
+      "status": "available",
+      "time": "10:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-30%2B10%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-215d45f85c18b162c8fdf65821cbad9ed095956d5aca07a60ff7ae0a92e6b397"
+    },
+    "2026-09-30T14:15": {
+      "band": "afternoon",
+      "date": "2026-09-30",
+      "display": "2:15p",
+      "expired": false,
+      "key": "2026-09-30T14:15",
+      "showtime_id": 563202531,
+      "status": "available",
+      "time": "14:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-30%2B14%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-54206f2260a3dbcc87f1d90e8efc5f1b14576417c02139238806a4da78302f3d"
+    },
+    "2026-09-30T18:15": {
+      "band": "evening",
+      "date": "2026-09-30",
+      "display": "6:15p",
+      "expired": false,
+      "key": "2026-09-30T18:15",
+      "showtime_id": 563202530,
+      "status": "available",
+      "time": "18:15",
+      "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-30%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-1208746fc06b6fbf215ac1a2b7cbba2837675cff177c093aab0b059f8a23f4a4"
     }
   }
 }
