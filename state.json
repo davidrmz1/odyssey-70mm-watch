@@ -1479,10 +1479,10 @@
       "band": "morning",
       "date": "2026-09-05",
       "display": "10:30a",
-      "expired": false,
+      "expired": true,
       "key": "2026-09-05T10:30",
       "showtime_id": 558027859,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "10:30",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-05%2B10%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-142a48ee4bd9067c9e14e7d57ea819fc655ea2b7595841d0706427a5d5326736"
     },
