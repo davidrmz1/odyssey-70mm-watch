@@ -3466,7 +3466,7 @@
     },
     {
       "auditorium": 12,
-      "available": 268,
+      "available": 269,
       "best": [
         {
           "centre_offset": 0.303,
@@ -3525,20 +3525,20 @@
         }
       ],
       "best_centred": {
-        "centre_offset": 0.197,
-        "depth": 0.473,
+        "centre_offset": 0.066,
+        "depth": 0.385,
         "ideal": true,
-        "row": "F",
-        "score": 0.452,
+        "row": "E",
+        "score": 0.496,
         "seats": [
-          "F28",
-          "F27"
+          "E18",
+          "E17"
         ]
       },
       "date": "2026-09-22",
       "display": "6:15p",
-      "pairs_ideal": 25,
-      "pairs_total": 236,
+      "pairs_ideal": 24,
+      "pairs_total": 237,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-22%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-b63e943e4f2230a725846b2bd65c8e988996c467ce3f4b670dc7005e3549c9fa"
     },
