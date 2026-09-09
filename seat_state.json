@@ -2374,19 +2374,8 @@
     },
     {
       "auditorium": 12,
-      "available": 53,
+      "available": 52,
       "best": [
-        {
-          "centre_offset": 0.066,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 0.914,
-          "seats": [
-            "C16",
-            "C15"
-          ]
-        },
         {
           "centre_offset": 0.039,
           "depth": 0.088,
@@ -2430,23 +2419,34 @@
             "C4",
             "C3"
           ]
+        },
+        {
+          "centre_offset": 0.091,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.115,
+          "seats": [
+            "B7",
+            "B6"
+          ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.066,
-        "depth": 0.176,
+        "centre_offset": 0.039,
+        "depth": 0.088,
         "ideal": false,
-        "row": "C",
-        "score": 0.914,
+        "row": "B",
+        "score": 1.062,
         "seats": [
-          "C16",
-          "C15"
+          "B9",
+          "B8"
         ]
       },
       "date": "2026-09-08",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 41,
+      "pairs_total": 40,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-08%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-81b0257a1fbe5c7cb2da29d53ee3904ba2e545937cd6b8bc82435a6ec3228d67"
     },
@@ -2608,7 +2608,7 @@
     },
     {
       "auditorium": 12,
-      "available": 47,
+      "available": 48,
       "best": [
         {
           "centre_offset": 0.012,
@@ -2764,19 +2764,8 @@
     },
     {
       "auditorium": 12,
-      "available": 59,
+      "available": 56,
       "best": [
-        {
-          "centre_offset": 0.171,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 1.019,
-          "seats": [
-            "C7",
-            "C6"
-          ]
-        },
         {
           "centre_offset": 0.172,
           "depth": 0.176,
@@ -2786,17 +2775,6 @@
           "seats": [
             "C20",
             "C19"
-          ]
-        },
-        {
-          "centre_offset": 0.197,
-          "depth": 0.176,
-          "ideal": false,
-          "row": "C",
-          "score": 1.045,
-          "seats": [
-            "C6",
-            "C5"
           ]
         },
         {
@@ -2811,32 +2789,54 @@
           ]
         },
         {
-          "centre_offset": 0.223,
+          "centre_offset": 0.065,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.089,
+          "seats": [
+            "B8",
+            "B7"
+          ]
+        },
+        {
+          "centre_offset": 0.067,
+          "depth": 0.088,
+          "ideal": false,
+          "row": "B",
+          "score": 1.09,
+          "seats": [
+            "B13",
+            "B12"
+          ]
+        },
+        {
+          "centre_offset": 0.249,
           "depth": 0.176,
           "ideal": false,
           "row": "C",
-          "score": 1.071,
+          "score": 1.098,
           "seats": [
-            "C5",
-            "C4"
+            "C4",
+            "C3"
           ]
         }
       ],
       "best_centred": {
-        "centre_offset": 0.171,
+        "centre_offset": 0.172,
         "depth": 0.176,
         "ideal": false,
         "row": "C",
-        "score": 1.019,
+        "score": 1.02,
         "seats": [
-          "C7",
-          "C6"
+          "C20",
+          "C19"
         ]
       },
       "date": "2026-09-13",
       "display": "6:30p",
       "pairs_ideal": 0,
-      "pairs_total": 46,
+      "pairs_total": 43,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-13%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-8e09f0e743139b86f81d7eff7f066c577c8b65af8a2cbb3134e89ec90ff1bbaa"
     },
@@ -3310,19 +3310,8 @@
     },
     {
       "auditorium": 12,
-      "available": 146,
+      "available": 144,
       "best": [
-        {
-          "centre_offset": 0.408,
-          "depth": 0.649,
-          "ideal": false,
-          "row": "H",
-          "score": 0.505,
-          "seats": [
-            "H5",
-            "H4"
-          ]
-        },
         {
           "centre_offset": 0.434,
           "depth": 0.561,
@@ -3332,17 +3321,6 @@
           "seats": [
             "G37",
             "G36"
-          ]
-        },
-        {
-          "centre_offset": 0.434,
-          "depth": 0.649,
-          "ideal": false,
-          "row": "H",
-          "score": 0.531,
-          "seats": [
-            "H4",
-            "H3"
           ]
         },
         {
@@ -3366,6 +3344,28 @@
             "G3",
             "G2"
           ]
+        },
+        {
+          "centre_offset": 0.487,
+          "depth": 0.561,
+          "ideal": false,
+          "row": "G",
+          "score": 0.565,
+          "seats": [
+            "G39",
+            "G38"
+          ]
+        },
+        {
+          "centre_offset": 0.487,
+          "depth": 0.561,
+          "ideal": false,
+          "row": "G",
+          "score": 0.565,
+          "seats": [
+            "G2",
+            "G1"
+          ]
         }
       ],
       "best_centred": {
@@ -3382,47 +3382,14 @@
       "date": "2026-09-20",
       "display": "6:15p",
       "pairs_ideal": 0,
-      "pairs_total": 119,
+      "pairs_total": 117,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-20%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-4d405b34cdc8ab62b0a2f5b2dd089b6fa01426b4c66dce09f13b70479c420bd5"
     },
     {
       "auditorium": 12,
-      "available": 224,
+      "available": 219,
       "best": [
-        {
-          "centre_offset": 0.303,
-          "depth": 0.561,
-          "ideal": false,
-          "row": "G",
-          "score": 0.381,
-          "seats": [
-            "G9",
-            "G8"
-          ]
-        },
-        {
-          "centre_offset": 0.303,
-          "depth": 0.649,
-          "ideal": false,
-          "row": "H",
-          "score": 0.4,
-          "seats": [
-            "H9",
-            "H8"
-          ]
-        },
-        {
-          "centre_offset": 0.329,
-          "depth": 0.561,
-          "ideal": false,
-          "row": "G",
-          "score": 0.407,
-          "seats": [
-            "G8",
-            "G7"
-          ]
-        },
         {
           "centre_offset": 0.329,
           "depth": 0.649,
@@ -3435,14 +3402,47 @@
           ]
         },
         {
-          "centre_offset": 0.329,
+          "centre_offset": 0.355,
+          "depth": 0.561,
+          "ideal": false,
+          "row": "G",
+          "score": 0.434,
+          "seats": [
+            "G34",
+            "G33"
+          ]
+        },
+        {
+          "centre_offset": 0.355,
+          "depth": 0.561,
+          "ideal": false,
+          "row": "G",
+          "score": 0.434,
+          "seats": [
+            "G7",
+            "G6"
+          ]
+        },
+        {
+          "centre_offset": 0.355,
           "depth": 0.649,
           "ideal": false,
           "row": "H",
-          "score": 0.426,
+          "score": 0.453,
           "seats": [
-            "H8",
-            "H7"
+            "H34",
+            "H33"
+          ]
+        },
+        {
+          "centre_offset": 0.382,
+          "depth": 0.561,
+          "ideal": false,
+          "row": "G",
+          "score": 0.46,
+          "seats": [
+            "G35",
+            "G34"
           ]
         }
       ],
@@ -3460,7 +3460,7 @@
       "date": "2026-09-21",
       "display": "6:15p",
       "pairs_ideal": 9,
-      "pairs_total": 198,
+      "pairs_total": 193,
       "total": 387,
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-21%2B18%3A15&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-75be4ed3e1bf5b2f644d468b860fdac0cfc30d9b95b065e9e76d21a93bcc5809"
     },
