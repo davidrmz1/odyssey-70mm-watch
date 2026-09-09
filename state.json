@@ -1644,10 +1644,10 @@
       "band": "too_late",
       "date": "2026-09-08",
       "display": "10:30p",
-      "expired": false,
+      "expired": true,
       "key": "2026-09-08T22:30",
       "showtime_id": 558037984,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "22:30",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-08%2B22%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-8b5c7f06f90de21fb75f80614647abfc15e955058781a1a685eef1e1f30de38a"
     },
