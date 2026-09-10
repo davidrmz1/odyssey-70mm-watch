@@ -36,7 +36,7 @@ if not defined PYEXE (
   exit /b 1
 )
 
-REM Keep the log from growing without bound; this runs every 15 minutes.
+REM Keep the log from growing without bound; this runs every 2 minutes.
 %PYEXE% rotate_log.py watch_dates.log >nul 2>&1
 
 echo === %DATE% %TIME% starting date scan mode=%MODE% (using %PYEXE%) >> "%REPO_DIR%\watch_dates.log"
@@ -45,10 +45,17 @@ set CODE=%ERRORLEVEL%
 echo --- exit %CODE% --- >> "%REPO_DIR%\watch_dates.log"
 
 REM Publish the scan results. Nothing in Actions commits state.json anymore.
-REM Only the 2-hourly full scan stamps the heartbeat: the heartbeat always
-REM changes, so stamping it every 15 minutes would mean ~96 commits a day.
+REM Only the 30-minute full scan stamps the heartbeat: the heartbeat always
+REM changes, so stamping it every 2 minutes would mean ~720 commits a day.
+REM
+REM The two date tasks MUST NOT share a StartBoundary. Both were registered at
+REM 12:05:48 and 30 is a multiple of 2, so every full run fired in the same
+REM second as a frontier run -- two cmd processes appending to watch_dates.log
+REM clobbered each other and the full run lost its publish, so heartbeat_dates
+REM went stale and deadman.yml opened a false "watcher stalled" issue
+REM (2026-09-09, #240). Fixed by offsetting the full task to 12:06:48.
 set HB=
-if /I "%MODE%"=="full" set HB=--heartbeat dates --min-interval 60 --min-interval 60
+if /I "%MODE%"=="full" set HB=--heartbeat dates --min-interval 60
 %PYEXE% publish_state.py --file state.json --message "state: horizon update" %HB% >> "%REPO_DIR%\watch_dates.log" 2>&1
 
 if "%CODE%"=="2" echo ALL DATE REQUESTS FAILED - endpoint may have changed >> "%REPO_DIR%\watch_dates.log"

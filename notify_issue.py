@@ -4,13 +4,16 @@
 Why an issue rather than email or SMS: it needs no mail credential, and the
 GitHub mobile app pushes it to the phone. Crucially the app has NO push category
 for "issue in a repo you watch" -- only Direct Mentions, Assigned, Workflow Runs
-and friends. So the issue MUST assign the user and @mention them, or it silently
-never pushes.
+and friends. So the issue MUST @mention the user, or it silently never pushes.
+
+Mention ONLY -- do not also assign. An issue that assigns and mentions the same
+person delivers TWO notifications, because GitHub treats "assign" and "mention"
+as separate reasons. That doubled every alert until 2026-09-09. The mention is
+the half kept because it is the half with a recorded verification behind it.
 
 It must also be opened by SOMEONE ELSE. GitHub sends no notification for your
 own activity, so an issue created with davidrmz1's own credential -- which is
-what any personal token here is -- assigns and @mentions the recipient and
-notifies nobody. Verified 2026-08-10: bot-authored issues #3/#4 each produced a
+what any personal token here is -- @mentions the recipient and notifies nobody. Verified 2026-08-10: bot-authored issues #3/#4 each produced a
 "mention" notification; self-authored #5 produced none.
 
 So this does not POST to the issues API. It dispatches .github/workflows/alert.yml,
@@ -64,10 +67,16 @@ def build_body(hits):
     for h in hits:
         b = h.get("best_centred") or {}
         seats = "+".join(b.get("seats", [])) or "?"
+        # Set by seat_check when this showtime ALSO cleared RELEASE_MIN. It used to
+        # open a second "seats released" issue of its own; now it rides along here
+        # so the release fact survives without a second notification.
+        released = (f", **+{h['gained']} just released** ({h['was']} -> {h['available']})"
+                    if h.get("gained") else "")
         lines.append(
             f"- **{h['date']} {h['display']}** — {seats} "
             f"(row {b.get('row', '?')}, {b.get('depth', 0):.0%} back), "
             f"{h['pairs_ideal']} ideal pair(s), {h['available']}/{h['total']} free"
+            f"{released}"
         )
         lines.append(f"  [book]({h['url']})")
     lines += ["", "These go fast — every centre pair found on 2026-08-06 sold within a day."]

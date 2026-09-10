@@ -96,7 +96,9 @@ jobs:
             printf '\n%s\n' \
               "Check the PC: Task Scheduler tasks Odyssey*, then seat_check.log and watch_dates.log." \
               >> issue.md
-            gh issue create --assignee davidrmz1 --title "$ISSUE_TITLE" --body-file issue.md
+            # NOT --assignee -- see the note in alert.yml: assign + @mention on
+            # one issue is two notifications. The body already mentions.
+            gh issue create --title "$ISSUE_TITLE" --body-file issue.md
           else
             if [ -n "$EXISTING" ]; then
               gh issue close "$EXISTING" --comment "Heartbeats healthy again."

@@ -76,7 +76,8 @@ jobs:
           h=json.load(open('seat_hits.json')); f=h[0]
           extra=f' +{len(h)-1} more' if len(h)>1 else ''
           print(f\"Odyssey 70mm: CENTRE SEATS open {f['date']} {f['display']}{extra}\")")
-          gh issue create --assignee davidrmz1 --title "$TITLE" --body-file issue.md
+          # NOT --assignee: assign + @mention on one issue is two notifications. See alert.yml.
+          gh issue create --title "$TITLE" --body-file issue.md
 
       - name: Persist seat state
         run: |

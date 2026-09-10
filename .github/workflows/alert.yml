@@ -66,5 +66,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue create --assignee davidrmz1 \
+          # NOT --assignee: the body already @mentions the recipient, and an
+          # issue that both assigns and mentions produces TWO notifications --
+          # GitHub reasons "assign" and "mention" deliver separately, which is
+          # exactly the double David reported on 2026-09-09. The mention is the
+          # channel with a recorded verification behind it (2026-08-10), so that
+          # is the one kept. Re-adding --assignee re-creates the double.
+          gh issue create \
             --title "$(cat issue_title.txt)" --body-file issue.md

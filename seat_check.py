@@ -369,6 +369,24 @@ def main():
         if gained >= RELEASE_MIN:
             releases.append({**r, "gained": gained, "was": before})
 
+    # A block of seats going back on sale usually CONTAINS a centred pair, so the
+    # same showtime landed in both lists and opened two issues seconds apart --
+    # it did that 13 times before being found on 2026-09-09 (e.g. #214 and #215,
+    # one second apart, same showtime). The seats alert is strictly the more
+    # actionable of the two: it names the exact seats and links the booking page.
+    # So fold the release fact into it and drop the duplicate, rather than
+    # sending both and making the phone buzz twice for one event.
+    # Annotate COPIES, never the result dicts themselves: those same objects get
+    # persisted to seat_state.json, and stamping run-specific fields into stored
+    # state is how a later sweep ends up reading a number that was true once.
+    newly_dates = {r["date"] for r in newly}
+    rel_by_date = {r["date"]: r for r in releases}
+    newly = [{**r, "gained": rel_by_date[r["date"]]["gained"],
+              "was": rel_by_date[r["date"]]["was"]}
+             if r["date"] in rel_by_date else r
+             for r in newly]
+    releases = [r for r in releases if r["date"] not in newly_dates]
+
     print(f"\nchecked {len(results)} showtimes, {len(errors)} error(s)")
     print(f"showtimes with an IDEAL centre pair: {len(ideal)} ({len(newly)} new)")
     for r in ideal:

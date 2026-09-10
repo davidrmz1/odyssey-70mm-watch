@@ -59,7 +59,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create \
-            --assignee davidrmz1 \
+            # NOT --assignee: assign + @mention on one issue is two notifications. See alert.yml.
             --title "TEST: Odyssey 70mm alert channel check" \
             --body "$(printf '%s\n' \
               '@davidrmz1' '' \
@@ -116,8 +116,9 @@ jobs:
           import json, pathlib
           hits = json.loads(pathlib.Path("hits.json").read_text() or "[]")
           if hits:
-              # The @mention and the assignee are what make the GitHub mobile app
-              # actually push: it has no "issue in a watched repo" push category.
+              # The @mention is what makes the GitHub mobile app actually push: it
+              # has no "issue in a watched repo" push category. It used to assign
+              # AND mention, which pushed twice for every alert -- fixed 2026-09-09.
               print("@davidrmz1\n")
               print(f"{len(hits)} new IMAX 70mm evening showtime(s) at Regal Irvine Spectrum.\n")
               for h in hits:
@@ -133,7 +134,8 @@ jobs:
           first=h[0]
           extra=f' +{len(h)-1} more' if len(h)>1 else ''
           print(f\"Odyssey 70mm: new evening showtime {first['date']} {first['display']}{extra}\")")
-          gh issue create --assignee davidrmz1 --title "$TITLE" --body-file issue.md
+          # NOT --assignee: assign + @mention on one issue is two notifications. See alert.yml.
+          gh issue create --title "$TITLE" --body-file issue.md
 
       - name: Persist state
         if: ${{ !inputs.test_issue }}
