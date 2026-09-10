@@ -58,8 +58,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # NOT --assignee: assign + @mention on one issue is two
+          # notifications. See alert.yml. (And a comment must never go
+          # INSIDE a \-continued command -- it swallows the rest of it.)
           gh issue create \
-            # NOT --assignee: assign + @mention on one issue is two notifications. See alert.yml.
             --title "TEST: Odyssey 70mm alert channel check" \
             --body "$(printf '%s\n' \
               '@davidrmz1' '' \
