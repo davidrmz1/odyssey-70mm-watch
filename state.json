@@ -1765,10 +1765,10 @@
       "band": "evening",
       "date": "2026-09-11",
       "display": "6:30p",
-      "expired": false,
+      "expired": true,
       "key": "2026-09-11T18:30",
       "showtime_id": 558027838,
-      "status": "available",
+      "status": "pastshowtime",
       "time": "18:30",
       "url": "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-09-11%2B18%3A30&from=mov_det_showtimes&source=MobileWeb&mid=241386&tid=AABTB&dfam=webbrowser&showtimehashcode=v2-af14d7baa55469fefee3befe8883e485f50a4cbd5f65ef47182d3111bd311edf"
     },
